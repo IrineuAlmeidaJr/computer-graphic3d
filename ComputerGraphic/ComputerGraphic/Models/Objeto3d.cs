@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace ComputerGraphic.Models
 {
@@ -31,7 +33,6 @@ namespace ComputerGraphic.Models
             ListaNormaisVertices = new List<Vertice>();
         }
 
-
         private void InicializaMatriz()
         {
             MatrizAcumulada = new double[4, 4];
@@ -41,10 +42,66 @@ namespace ComputerGraphic.Models
             }
         }
 
+        public void DesenharPoligono(Bitmap imagem, PictureBox pictureBox, int iniX, int iniY)
+        {
+
+            if (ListaVerticesAtuais.Count > 1)
+            {
+                int ate = ListaVerticesAtuais.Count - 1;
+                for (int i = 0; i < ate; i++)
+                {
+                    // --> DUVIDA
+                    // Não precisa passar o Z, porque aqui considera ele como 0
+                    Vertice.PontoMedio(ListaVerticesAtuais[i].X + iniX, ListaVerticesAtuais[i].Y + iniY,
+                        ListaVerticesAtuais[i + 1].X + iniX, ListaVerticesAtuais[i + 1].Y + iniY, imagem);
+                }
+                // Liga último com o primeiro
+                Vertice.PontoMedio(ListaVerticesAtuais[ate].X + iniX, ListaVerticesAtuais[ate].Y + iniY,
+                        ListaVerticesAtuais[0].X + iniX, ListaVerticesAtuais[0].Y + iniY, imagem);
+
+                //pictureBox.Image = imagem;
+            }
 
 
+            //if (this.Pontos.Count > 1)
+            //{
+            //    int ate = this.Pontos.Count - 1;
+            //    for (int i = 0; i < ate; i++)
+            //    {
+            //        Ponto.PontoMedio(this.Pontos[i].X, this.Pontos[i].Y,
+            //        this.Pontos[i + 1].X, this.Pontos[i + 1].Y, imagem);
+            //    }
+            //    Ponto.PontoMedio(this.Pontos[ate].X, this.Pontos[ate].Y,
+            //        this.Pontos[0].X, this.Pontos[0].Y, imagem);
+
+            //    if (_colorido)
+            //    {
+            //        //FloodFill(imagem, pictureBox);
+            //        Rasterizacao(pictureBox, imagem);
+            //    }
+
+
+            //    pictureBox.Image = imagem;
+            //}
+
+        }
+
+        public void PreencherComVertices(DataGridView dtGrid)
+        {
+            foreach(var vertice in ListaVerticesAtuais)
+            {
+                dtGrid.Rows.Add(new object[]
+                {
+                    vertice.X, 
+                    vertice.Y, 
+                    vertice.Z
+                });
+            }
+        }
 
 
 
     }
+
+    
 }

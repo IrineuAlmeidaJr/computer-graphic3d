@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -15,12 +16,28 @@ namespace ComputerGraphic
     public partial class ComputerGraphic : Form
     {
 
-        Objeto3d objeto3D;
+        private Objeto3d _objeto3D;
+        private Bitmap _imagem;
+        private int _width;
+        private int _height;
 
         public ComputerGraphic()
         {
             InitializeComponent();
-            objeto3D = new Objeto3d();
+            _objeto3D = new Objeto3d();
+            _width = pictureBox.Height;
+            _height = pictureBox.Width;
+
+            CarregarTela();
+        }
+
+        private void CarregarTela()
+        {
+            _imagem =
+                new Bitmap(_height, _width, System.Drawing.Imaging.PixelFormat.Format32bppPArgb);
+            Graphics graphics = Graphics.FromImage(_imagem);
+            pictureBox.Image = _imagem;                        
+            
         }
 
         private void abrirObjeto3D_Click(object sender, EventArgs e)
@@ -36,6 +53,12 @@ namespace ComputerGraphic
                     {
                         using (StreamReader arquivo = new StreamReader(ofd.FileName))
                         {
+                            _objeto3D = new Objeto3d();
+
+                            NumberFormatInfo provider = new NumberFormatInfo();
+                            provider.NumberDecimalSeparator = ".";
+                            //provider.NumberGroupSeparator = ",";
+
                             double x, y, z;
                             string linha;
                             string[] dados;
@@ -48,12 +71,17 @@ namespace ComputerGraphic
                                 {
                                     case "v":
                                         // Pode dar Erro na converção
-                                        x = Convert.ToDouble(dados[1]);
-                                        y = Convert.ToDouble(dados[1]);
-                                        z = 0.0;
-                                        objeto3D.ListaVerticesOriginais
+                                        x = Convert.ToDouble(dados[1], provider);
+                                        y = Convert.ToDouble(dados[2], provider);
+                                        z = Convert.ToDouble(dados[3], provider);
+
+                                        //x = Convert.ToDouble(dados[1], provider) * 200;
+                                        //y = Convert.ToDouble(dados[2], provider) * 200;
+                                        //z = Convert.ToDouble(dados[3], provider);
+
+                                        _objeto3D.ListaVerticesOriginais
                                             .Add(new Vertice(x, y, z));
-                                        objeto3D.ListaVerticesAtuais
+                                        _objeto3D.ListaVerticesAtuais
                                             .Add(new Vertice(x, y, z));
                                         break;
 
@@ -64,47 +92,27 @@ namespace ComputerGraphic
                                             dadosFace = dados[i].Split('/');
                                             // Coloca "-1", porque, as posições no arquivo iniciam de 1,
                                             // mas, na lista inicia de 0
-                                            posVertices.Add(Convert.ToInt32(dadosFace[0]) - 1);
+                                            posVertices.Add(Convert.ToInt32(dadosFace[0], provider) - 1);
                                         }
 
-                                        objeto3D.ListaFaces.Add(posVertices);
+                                        _objeto3D.ListaFaces.Add(posVertices);
                                         break;
                                     default:
                                         Console.WriteLine("Nenhuma das Opções");
                                         break;
                                 }
 
-
-
                             }
+                            // Desenha Poligono
+                            CarregarTela();
+                            _objeto3D.DesenharPoligono(_imagem, pictureBox, _height/2, _width/2);
 
-
-
-
+                            _objeto3D.PreencherComVertices(dtGridVertices);
                         }
+                       
                     }
-
-
-
-
                 }
-
-
-                //Pass the file path and file name to the StreamReader constructor
-                StreamReader sr = new StreamReader("C:\\Sample.txt");
-                //Read the first line of text
-                line = sr.ReadLine();
-                //Continue to read until you reach end of file
-                while (line != null)
-                {
-                    //write the line to console window
-                    Console.WriteLine(line);
-                    //Read the next line
-                    line = sr.ReadLine();
-                }
-                //close the file
-                sr.Close();
-                Console.ReadLine();
+                
             }
             catch (Exception error)
             {
