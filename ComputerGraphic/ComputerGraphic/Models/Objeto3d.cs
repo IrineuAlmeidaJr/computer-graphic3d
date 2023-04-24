@@ -91,13 +91,14 @@ namespace ComputerGraphic.Models
 
         public void PreencherComVertices(DataGridView dtGrid)
         {
-            foreach(var face in ListaFaces)
+            dtGrid.Rows.Clear();
+            foreach (var vertice in ListaVerticesAtuais)
             {
                 dtGrid.Rows.Add(new object[]
                 {
-                    ListaVerticesAtuais[face[0]].X,
-                    ListaVerticesAtuais[face[1]].Y,
-                    ListaVerticesAtuais[face[2]].Z
+                    vertice.X,
+                    vertice.Y,
+                    vertice.Z
                 });
             }
         }
