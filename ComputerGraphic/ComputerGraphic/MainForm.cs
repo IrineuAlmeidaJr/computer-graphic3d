@@ -40,9 +40,35 @@ namespace ComputerGraphic
             
         }
 
+        public bool FazEscala(StreamReader arquivo)
+        {
+            NumberFormatInfo provider = new NumberFormatInfo();
+            provider.NumberDecimalSeparator = ".";
+
+            bool flag = true;
+            string[] dados;
+            string linha = arquivo.ReadLine();
+            if (linha != null)
+            {
+                dados = linha.Split(' ');
+                while (linha != null && dados[0] == "v" && flag)
+                {
+                    if (Math.Abs(Convert.ToDouble(dados[1], provider)) > 2
+                    && Math.Abs(Convert.ToDouble(dados[2], provider)) > 2
+                    && Math.Abs(Convert.ToDouble(dados[3], provider)) > 2)
+                    {
+                        flag = false;
+                    }
+                    linha = arquivo.ReadLine();
+                    dados = linha.Split(' ');
+                }                
+            }
+
+            return flag;
+        }
+
         private void abrirObjeto3D_Click(object sender, EventArgs e)
         {
-            String line;
             try
             {
 
@@ -53,59 +79,105 @@ namespace ComputerGraphic
                     {
                         using (StreamReader arquivo = new StreamReader(ofd.FileName))
                         {
-                            _objeto3D = new Objeto3d();
-
-                            NumberFormatInfo provider = new NumberFormatInfo();
-                            provider.NumberDecimalSeparator = ".";
-                            //provider.NumberGroupSeparator = ",";
-
                             double x, y, z;
                             string linha;
                             string[] dados;
                             string[] dadosFace;
-                            while ((linha = arquivo.ReadLine()) != null)
+
+                            _objeto3D = new Objeto3d();
+                            CarregarTela();
+
+                            NumberFormatInfo provider = new NumberFormatInfo();
+                            provider.NumberDecimalSeparator = ".";
+                            
+                            if (FazEscala(arquivo))
                             {
-                                dados = linha.Split(' ');
 
-                                switch (dados[0])
+                                double area = (_height + _width) / 4;
+                                StreamReader arquivo2 = new StreamReader(ofd.FileName);
+                                while ((linha = arquivo2.ReadLine()) != null)
                                 {
-                                    case "v":
-                                        // Pode dar Erro na converção
-                                        x = Convert.ToDouble(dados[1], provider);
-                                        y = Convert.ToDouble(dados[2], provider);
-                                        z = Convert.ToDouble(dados[3], provider);
+                                    dados = linha.Split(' ');
 
-                                        //x = Convert.ToDouble(dados[1], provider) * 200;
-                                        //y = Convert.ToDouble(dados[2], provider) * 200;
-                                        //z = Convert.ToDouble(dados[3], provider);
+                                    switch (dados[0])
+                                    {
+                                        case "v":
 
-                                        _objeto3D.ListaVerticesOriginais
-                                            .Add(new Vertice(x, y, z));
-                                        _objeto3D.ListaVerticesAtuais
-                                            .Add(new Vertice(x, y, z));
-                                        break;
+                                            x = Convert.ToDouble(dados[1], provider) * area;
+                                            y = Convert.ToDouble(dados[2], provider) * area;
+                                            z = Convert.ToDouble(dados[3], provider);
 
-                                    case "f":
-                                        List<int> posVertices = new List<int>();
-                                        for (int i = 1; i < dados.Length; i++)
-                                        {
-                                            dadosFace = dados[i].Split('/');
-                                            // Coloca "-1", porque, as posições no arquivo iniciam de 1,
-                                            // mas, na lista inicia de 0
-                                            posVertices.Add(Convert.ToInt32(dadosFace[0], provider) - 1);
-                                        }
+                                            _objeto3D.ListaVerticesOriginais
+                                                .Add(new Vertice(x, y, z));
+                                            _objeto3D.ListaVerticesAtuais
+                                                .Add(new Vertice(x, y, z));
+                                            break;
 
-                                        _objeto3D.ListaFaces.Add(posVertices);
-                                        break;
-                                    default:
-                                        Console.WriteLine("Nenhuma das Opções");
-                                        break;
+                                        case "f":
+                                            List<int> posVertices = new List<int>();
+                                            for (int i = 1; i < dados.Length; i++)
+                                            {
+                                                dadosFace = dados[i].Split('/');
+                                                // Coloca "-1", porque, as posições no arquivo iniciam de 1,
+                                                // mas, na lista inicia de 0
+                                                posVertices.Add(Convert.ToInt32(dadosFace[0], provider) - 1);
+                                            }
+
+                                            _objeto3D.ListaFaces.Add(posVertices);
+                                            break;
+                                        default:
+                                            Console.WriteLine("Nenhuma das Opções");
+                                            break;
+                                    }
+                                }
+                                // Desenha Poligono
+                                
+                                _objeto3D.DesenharPoligono(_imagem, pictureBox, _height / 2, _width / 8);
+                            }
+                            else
+                            {
+                                StreamReader arquivo2 = new StreamReader(ofd.FileName);
+                                while ((linha = arquivo2.ReadLine()) != null)
+                                {
+                                    dados = linha.Split(' ');
+
+                                    switch (dados[0])
+                                    {
+                                        case "v":
+                                            // Pode dar Erro na converção
+                                            x = Convert.ToDouble(dados[1], provider);
+                                            y = Convert.ToDouble(dados[2], provider);
+                                            z = Convert.ToDouble(dados[3], provider);
+
+                                            _objeto3D.ListaVerticesOriginais
+                                                .Add(new Vertice(x, y, z));
+                                            _objeto3D.ListaVerticesAtuais
+                                                .Add(new Vertice(x, y, z));
+                                            break;
+
+                                        case "f":
+                                            List<int> posVertices = new List<int>();
+                                            for (int i = 1; i < dados.Length; i++)
+                                            {
+                                                dadosFace = dados[i].Split('/');
+                                                // Coloca "-1", porque, as posições no arquivo iniciam de 1,
+                                                // mas, na lista inicia de 0
+                                                posVertices.Add(Convert.ToInt32(dadosFace[0], provider) - 1);
+                                            }
+
+                                            _objeto3D.ListaFaces.Add(posVertices);
+                                            break;
+                                        default:
+                                            Console.WriteLine("Nenhuma das Opções");
+                                            break;
+                                    }
                                 }
 
+                                // Desenha Poligono
+                                _objeto3D.DesenharPoligono(_imagem, pictureBox, _height / 2, _width / 2);
+
                             }
-                            // Desenha Poligono
-                            CarregarTela();
-                            _objeto3D.DesenharPoligono(_imagem, pictureBox, _height/2, _width/2);
+                            
 
                             _objeto3D.PreencherComVertices(dtGridVertices);
                         }

@@ -47,17 +47,20 @@ namespace ComputerGraphic.Models
 
             if (ListaVerticesAtuais.Count > 1)
             {
-                int ate = ListaVerticesAtuais.Count - 1;
+                int ate = ListaFaces.Count - 1;
                 for (int i = 0; i < ate; i++)
                 {
                     // --> DUVIDA
                     // Não precisa passar o Z, porque aqui considera ele como 0
-                    Vertice.PontoMedio(ListaVerticesAtuais[i].X + iniX, ListaVerticesAtuais[i].Y + iniY,
-                        ListaVerticesAtuais[i + 1].X + iniX, ListaVerticesAtuais[i + 1].Y + iniY, imagem);
+                    Vertice.PontoMedio(ListaVerticesAtuais[ListaFaces[i][0]].X + iniX, ListaVerticesAtuais[ListaFaces[i][0]].Y + iniY,
+                        ListaVerticesAtuais[ListaFaces[i][1]].X + iniX, ListaVerticesAtuais[ListaFaces[i][1]].Y + iniY, imagem);
+
+                    Vertice.PontoMedio(ListaVerticesAtuais[ListaFaces[i][1]].X + iniX, ListaVerticesAtuais[ListaFaces[i][1]].Y + iniY,
+                        ListaVerticesAtuais[ListaFaces[i][2]].X + iniX, ListaVerticesAtuais[ListaFaces[i][2]].Y + iniY, imagem);
+
+                    Vertice.PontoMedio(ListaVerticesAtuais[ListaFaces[i][2]].X + iniX, ListaVerticesAtuais[ListaFaces[i][2]].Y + iniY,
+                        ListaVerticesAtuais[ListaFaces[i][0]].X + iniX, ListaVerticesAtuais[ListaFaces[i][0]].Y + iniY, imagem);
                 }
-                // Liga último com o primeiro
-                Vertice.PontoMedio(ListaVerticesAtuais[ate].X + iniX, ListaVerticesAtuais[ate].Y + iniY,
-                        ListaVerticesAtuais[0].X + iniX, ListaVerticesAtuais[0].Y + iniY, imagem);
 
                 //pictureBox.Image = imagem;
             }
@@ -88,13 +91,13 @@ namespace ComputerGraphic.Models
 
         public void PreencherComVertices(DataGridView dtGrid)
         {
-            foreach(var vertice in ListaVerticesAtuais)
+            foreach(var face in ListaFaces)
             {
                 dtGrid.Rows.Add(new object[]
                 {
-                    vertice.X, 
-                    vertice.Y, 
-                    vertice.Z
+                    ListaVerticesAtuais[face[0]].X,
+                    ListaVerticesAtuais[face[1]].Y,
+                    ListaVerticesAtuais[face[2]].Z
                 });
             }
         }
