@@ -22,16 +22,12 @@ namespace ComputerGraphic
         private int _width;
         private int _height;
 
-        private int _valor_scroll;
-
         public ComputerGraphic()
         {
             InitializeComponent();
             _objeto3D = null;
             _width = pictureBox.Width;
             _height = pictureBox.Height;
-
-            _valor_scroll = 0;
 
             pictureBox.MouseWheel += PictureBoxMouseWheel;
 
@@ -40,16 +36,18 @@ namespace ComputerGraphic
 
         private void PictureBoxMouseWheel(object sender, MouseEventArgs e)
         {
+            double escala;
             if (e.Delta > 0)
             {
-                _valor_scroll += 10;
+                escala = 1.05;
             }
             else
             {
-                _valor_scroll -= 10;
+                escala = 0.95;
             }
-            labelTest.Text = _valor_scroll.ToString();
-            _objeto3D.Escala(_valor_scroll, _valor_scroll, _valor_scroll);
+
+            _objeto3D.Escala(escala, escala, escala);
+            CarregarTela();           
         }
 
         private void CarregarTela()

@@ -61,35 +61,10 @@ namespace ComputerGraphic.Models
 
                     Vertice.PontoMedio(ListaVerticesAtuais[ListaFaces[i][2]].X, ListaVerticesAtuais[ListaFaces[i][2]].Y,
                         ListaVerticesAtuais[ListaFaces[i][0]].X, ListaVerticesAtuais[ListaFaces[i][0]].Y, imagem);
-                }
-
-                
+                }                
 
                 pictureBox.Image = imagem;
             }
-
-
-            //if (this.Pontos.Count > 1)
-            //{
-            //    int ate = this.Pontos.Count - 1;
-            //    for (int i = 0; i < ate; i++)
-            //    {
-            //        Ponto.PontoMedio(this.Pontos[i].X, this.Pontos[i].Y,
-            //        this.Pontos[i + 1].X, this.Pontos[i + 1].Y, imagem);
-            //    }
-            //    Ponto.PontoMedio(this.Pontos[ate].X, this.Pontos[ate].Y,
-            //        this.Pontos[0].X, this.Pontos[0].Y, imagem);
-
-            //    if (_colorido)
-            //    {
-            //        //FloodFill(imagem, pictureBox);
-            //        Rasterizacao(pictureBox, imagem);
-            //    }
-
-
-            //    pictureBox.Image = imagem;
-            //}
-
         }
 
         public void PreencherComVertices(DataGridView dtGrid)
@@ -153,8 +128,82 @@ namespace ComputerGraphic.Models
 
         }
 
-        public void Escala(int sx,  int sy, int sz)
+        public void Escala(double sX, double sY, double sZ)
         {
+            double[] cordenadasXYZ = new double[] {
+                ListaVerticesAtuais[0].X,
+                ListaVerticesAtuais[0].Y,
+                ListaVerticesAtuais[0].Z
+            };
+            
+
+            double[,] matrizEscala = new double[4, 4];
+            double[,] matrizTranslacao_origem = new double[4, 4];
+            double[,] matrizTranslacao_centroide = new double[4, 4];
+            double[,] matrizResultante_1 = new double[4, 4];
+            double[,] matrizResultante_2 = new double[4, 4];
+            double[,] novaMatrizAcumulada = new double[4, 4];
+
+            // Matriz Identidade
+            for (int i = 0; i < 4; i++)
+            {
+                matrizEscala[i, i] = 1;
+                matrizTranslacao_origem[i, i] = 1;
+                matrizTranslacao_centroide[i, i] = 1;
+            }
+
+            matrizEscala[0, 0] = sX;
+            matrizEscala[1, 1] = sY;
+            matrizEscala[2, 2] = sZ;
+
+            matrizTranslacao_origem[0, 3] = -cordenadasXYZ[0]; // X
+            matrizTranslacao_origem[1, 3] = -cordenadasXYZ[1]; // Y
+            matrizTranslacao_origem[2, 3] = -cordenadasXYZ[2]; // Z
+
+            matrizTranslacao_centroide[0, 3] = cordenadasXYZ[0]; // X
+            matrizTranslacao_centroide[1, 3] = cordenadasXYZ[1]; // Y
+            matrizTranslacao_centroide[2, 3] = cordenadasXYZ[2]; // Y
+
+
+            // NovaMA = T(cent) * E * T(ori) * MA
+            // matrizResultante_1 = T(cent) * E
+            for (int linha = 0; linha < 4; linha++)
+            {
+                for (int coluna = 0; coluna < 4; coluna++)
+                {
+                    for (int i = 0; i < 4; i++)
+                    {
+                        matrizResultante_1[linha, coluna] += matrizTranslacao_centroide[linha, i] * matrizEscala[i, coluna];
+                    }
+                }
+            }
+            // matrizResultante_2 = matrizResultante_1 *  T(ori)
+            for (int linha = 0; linha < 4; linha++)
+            {
+                for (int coluna = 0; coluna < 4; coluna++)
+                {
+                    for (int i = 0; i < 4; i++)
+                    {
+                        matrizResultante_2[linha, coluna] += matrizResultante_1[linha, i] * matrizTranslacao_origem[i, coluna];
+                    }
+                }
+            }
+            // NovaMA = matrizResultante_2 *  MA
+            for (int linha = 0; linha < 4; linha++)
+            {
+                for (int coluna = 0; coluna < 4; coluna++)
+                {
+                    for (int i = 0; i < 4; i++)
+                    {
+                        novaMatrizAcumulada[linha, coluna] += matrizResultante_2[linha, i] * this.MatrizAcumulada[i, coluna];
+                    }
+                }
+            }
+
+            this.MatrizAcumulada = novaMatrizAcumulada;
+
+            MatrizAcumuladaVertices();
+
 
         }
 
