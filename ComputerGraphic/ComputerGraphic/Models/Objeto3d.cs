@@ -207,6 +207,99 @@ namespace ComputerGraphic.Models
 
         }
 
+        public void RotacaoX(int graus)
+        {
+            double[] cordenadasXYZ = new double[] {
+                ListaVerticesAtuais[0].X,
+                ListaVerticesAtuais[0].Y,
+                ListaVerticesAtuais[0].Z
+            };
+
+            double radiano = (Math.PI / 180) * graus;
+            double[,] matrizRotacao = new double[4, 4];
+            double[,] matrizTranslacao_origem = new double[4, 4];
+            double[,] matrizTranslacao_centroide = new double[4, 4];
+            double[,] matrizResultante_1 = new double[4, 4];
+            double[,] matrizResultante_2 = new double[4, 4];
+            double[,] novaMatrizAcumulada = new double[4, 4];
+
+            // Matriz Identidade
+            for (int i = 0; i < 3; i++)
+            {
+                matrizRotacao[i, i] = 1;
+                matrizTranslacao_origem[i, i] = 1;
+                matrizTranslacao_centroide[i, i] = 1;
+            }
+
+            matrizTranslacao_origem[0, 3] = -cordenadasXYZ[0];
+            matrizTranslacao_origem[1, 3] = -cordenadasXYZ[1];
+            matrizTranslacao_origem[2, 3] = -cordenadasXYZ[2];
+
+            matrizTranslacao_centroide[0, 3] = cordenadasXYZ[0];
+            matrizTranslacao_centroide[1, 3] = cordenadasXYZ[1];
+            matrizTranslacao_centroide[2, 3] = cordenadasXYZ[2];
+
+            // Para Z
+            //matrizRotacao[0, 0] = Math.Cos(radiano);
+            //matrizRotacao[0, 1] = -Math.Sin(radiano);
+            //matrizRotacao[1, 0] = Math.Sin(radiano);
+            //matrizRotacao[1, 1] = Math.Cos(radiano);
+
+            // Para Y
+            //matrizRotacao[0, 0] = Math.Cos(radiano);
+            //matrizRotacao[0, 2] = Math.Sin(radiano);
+            //matrizRotacao[2, 0] = -Math.Sin(radiano);
+            //matrizRotacao[2, 2] = Math.Cos(radiano);
+
+            // Para X
+            matrizRotacao[1, 1] = Math.Cos(radiano);
+            matrizRotacao[1, 2] = -Math.Sin(radiano);
+            matrizRotacao[2, 1] = Math.Sin(radiano);
+            matrizRotacao[2, 2] = Math.Cos(radiano);
+
+            // MA_Nova = T(cent) * R * T(ori) * P(MA)
+            // matrizResultante_1 = T(cent) * R 
+            for (int linha = 0; linha < 4; linha++)
+            {
+                for (int coluna = 0; coluna < 4; coluna++)
+                {
+                    for (int i = 0; i < 4; i++)
+                    {
+                        matrizResultante_1[linha, coluna] += matrizTranslacao_centroide[linha, i] * matrizRotacao[i, coluna];
+                    }
+                }
+            }
+            // matrizResultante_2 = matrizResultante_1 * T(ori)
+            for (int linha = 0; linha < 4; linha++)
+            {
+                for (int coluna = 0; coluna < 4; coluna++)
+                {
+                    for (int i = 0; i < 4; i++)
+                    {
+                        matrizResultante_2[linha, coluna] += matrizResultante_1[linha, i] * matrizTranslacao_origem[i, coluna];
+                    }
+                }
+            }
+            // Nova Matriz Acumulada
+            // Nova_MatrizAcumulada = matrizResultante_2 * MatrizAcumulada
+            for (int linha = 0; linha < 4; linha++)
+            {
+                for (int coluna = 0; coluna < 4; coluna++)
+                {
+                    for (int i = 0; i < 4; i++)
+                    {
+                        novaMatrizAcumulada[linha, coluna] += matrizResultante_2[linha, i] * this.MatrizAcumulada[i, coluna];
+                    }
+                }
+            }
+
+            this.MatrizAcumulada = novaMatrizAcumulada;
+
+            MatrizAcumuladaVertices();
+
+
+        }
+
 
     }
 

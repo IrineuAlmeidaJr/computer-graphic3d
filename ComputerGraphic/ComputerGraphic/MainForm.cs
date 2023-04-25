@@ -282,8 +282,38 @@ namespace ComputerGraphic
                     // Desenha Objeto3D
                     CarregarTela();
                 }
-                
+
+                int grau = e.Delta > 0 ? 5 : -5;
+
+                if (e.Button == MouseButtons.Right)
+                {
+                    if (pX)
+                    {
+                        _objeto3D.RotacaoX(grau);
+                    }
+                    else
+                    {
+                        if (pY)
+                        {
+                            //_objeto3D.Escala(1, escala, 1);
+                        }
+                        else
+                        {
+                            if (pZ)
+                            {
+                                //_objeto3D.Escala(1, 1, escala);
+                            }
+                        }
+                    }
+                }
+
+                CarregarTela();
+
             }
+
+            
+
+
         }
 
         
