@@ -31,6 +31,7 @@ namespace ComputerGraphic.Models
             ListaFaces = new List<List<int>>();
             ListaNormaisFaces = new List<Vertice>();
             ListaNormaisVertices = new List<Vertice>();
+
         }
 
         private void InicializaMatriz()
@@ -42,7 +43,7 @@ namespace ComputerGraphic.Models
             }
         }
 
-        public void DesenharPoligono(Bitmap imagem, PictureBox pictureBox, int iniX, int iniY)
+        public void Desenhar(Bitmap imagem, PictureBox pictureBox)
         {
 
             if (ListaVerticesAtuais.Count > 1)
@@ -52,17 +53,19 @@ namespace ComputerGraphic.Models
                 {
                     // --> DUVIDA
                     // Não precisa passar o Z, porque aqui considera ele como 0
-                    Vertice.PontoMedio(ListaVerticesAtuais[ListaFaces[i][0]].X + iniX, ListaVerticesAtuais[ListaFaces[i][0]].Y + iniY,
-                        ListaVerticesAtuais[ListaFaces[i][1]].X + iniX, ListaVerticesAtuais[ListaFaces[i][1]].Y + iniY, imagem);
+                    Vertice.PontoMedio(ListaVerticesAtuais[ListaFaces[i][0]].X, ListaVerticesAtuais[ListaFaces[i][0]].Y,
+                        ListaVerticesAtuais[ListaFaces[i][1]].X, ListaVerticesAtuais[ListaFaces[i][1]].Y, imagem);
 
-                    Vertice.PontoMedio(ListaVerticesAtuais[ListaFaces[i][1]].X + iniX, ListaVerticesAtuais[ListaFaces[i][1]].Y + iniY,
-                        ListaVerticesAtuais[ListaFaces[i][2]].X + iniX, ListaVerticesAtuais[ListaFaces[i][2]].Y + iniY, imagem);
+                    Vertice.PontoMedio(ListaVerticesAtuais[ListaFaces[i][1]].X, ListaVerticesAtuais[ListaFaces[i][1]].Y,
+                        ListaVerticesAtuais[ListaFaces[i][2]].X, ListaVerticesAtuais[ListaFaces[i][2]].Y, imagem);
 
-                    Vertice.PontoMedio(ListaVerticesAtuais[ListaFaces[i][2]].X + iniX, ListaVerticesAtuais[ListaFaces[i][2]].Y + iniY,
-                        ListaVerticesAtuais[ListaFaces[i][0]].X + iniX, ListaVerticesAtuais[ListaFaces[i][0]].Y + iniY, imagem);
+                    Vertice.PontoMedio(ListaVerticesAtuais[ListaFaces[i][2]].X, ListaVerticesAtuais[ListaFaces[i][2]].Y,
+                        ListaVerticesAtuais[ListaFaces[i][0]].X, ListaVerticesAtuais[ListaFaces[i][0]].Y, imagem);
                 }
 
-                //pictureBox.Image = imagem;
+                
+
+                pictureBox.Image = imagem;
             }
 
 
@@ -103,6 +106,57 @@ namespace ComputerGraphic.Models
             }
         }
 
+        private void MatrizAcumuladaVertices()
+        {
+            int x, y, z;
+            ListaVerticesAtuais.Clear();
+            foreach (var vertice in ListaVerticesOriginais)
+            {
+                x = (int)(vertice.X * MatrizAcumulada[0, 0] + vertice.Y * MatrizAcumulada[0, 1] + vertice.Z * MatrizAcumulada[0, 2] + MatrizAcumulada[0, 3]);
+                y = (int)(vertice.X * MatrizAcumulada[1, 0] + vertice.Y * MatrizAcumulada[1, 1] + vertice.Z * MatrizAcumulada[1, 2] + MatrizAcumulada[1, 3]);
+                z = (int)(vertice.X * MatrizAcumulada[2, 0] + vertice.Y * MatrizAcumulada[2, 1] + vertice.Z * MatrizAcumulada[2, 2] + MatrizAcumulada[2, 3]);
+                ListaVerticesAtuais.Add(new Vertice(x, y, z));
+            }
+        }
+
+        public void Translacao(int tX, int tY, int tZ)
+        {
+            double[,] matrizTranslacao = new double[4, 4];
+            double[,] novaMatrizAcumulada = new double[4, 4];
+
+            // Matriz Identidade
+            for (int i = 0; i < 4; i++)
+            {
+                matrizTranslacao[i, i] = 1;
+            }
+
+            // Matriz Translação
+            matrizTranslacao[0, 3] = tX;
+            matrizTranslacao[1, 3] = tY;
+            matrizTranslacao[2, 3] = tZ;
+
+            //  NovaMA = T * MA
+            for (int linha = 0; linha < 4; linha++)
+            {
+                for (int coluna = 0; coluna < 4; coluna++)
+                {
+                    for (int i = 0; i < 4; i++)
+                    {
+                        novaMatrizAcumulada[linha, coluna] += matrizTranslacao[linha, i] * this.MatrizAcumulada[i, coluna];
+                    }
+                }
+            }
+
+            this.MatrizAcumulada = novaMatrizAcumulada;
+
+            MatrizAcumuladaVertices();
+
+        }
+
+        public void Escala(int sx,  int sy, int sz)
+        {
+
+        }
 
 
     }

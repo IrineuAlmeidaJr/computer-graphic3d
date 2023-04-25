@@ -10,6 +10,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using ComputerGraphic.Models;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.Window;
 
 namespace ComputerGraphic
 {
@@ -21,22 +22,47 @@ namespace ComputerGraphic
         private int _width;
         private int _height;
 
+        private int _valor_scroll;
+
         public ComputerGraphic()
         {
             InitializeComponent();
-            _objeto3D = new Objeto3d();
-            _width = pictureBox.Height;
-            _height = pictureBox.Width;
+            _objeto3D = null;
+            _width = pictureBox.Width;
+            _height = pictureBox.Height;
+
+            _valor_scroll = 0;
+
+            pictureBox.MouseWheel += PictureBoxMouseWheel;
 
             CarregarTela();
+        }
+
+        private void PictureBoxMouseWheel(object sender, MouseEventArgs e)
+        {
+            if (e.Delta > 0)
+            {
+                _valor_scroll += 10;
+            }
+            else
+            {
+                _valor_scroll -= 10;
+            }
+            labelTest.Text = _valor_scroll.ToString();
+            _objeto3D.Escala(_valor_scroll, _valor_scroll, _valor_scroll);
         }
 
         private void CarregarTela()
         {
             _imagem =
-                new Bitmap(_height, _width, System.Drawing.Imaging.PixelFormat.Format32bppPArgb);
+                new Bitmap(_width, _height, System.Drawing.Imaging.PixelFormat.Format32bppPArgb);
             Graphics graphics = Graphics.FromImage(_imagem);
-            pictureBox.Image = _imagem;                        
+            pictureBox.Image = _imagem; 
+            
+            if (_objeto3D != null )
+            {
+                _objeto3D.Desenhar(_imagem, pictureBox);
+            }
             
         }
 
@@ -130,9 +156,8 @@ namespace ComputerGraphic
                                             break;
                                     }
                                 }
-                                // Desenha Poligono
-                                
-                                _objeto3D.DesenharPoligono(_imagem, pictureBox, _height / 2, _width / 8);
+                                // Translada para o Centro da Tela
+                                _objeto3D.Translacao(_width / 2, _height / 8, 0);
                             }
                             else
                             {
@@ -172,12 +197,13 @@ namespace ComputerGraphic
                                             break;
                                     }
                                 }
-
-                                // Desenha Poligono
-                                _objeto3D.DesenharPoligono(_imagem, pictureBox, _height / 2, _width / 2);
-
+                                // Translada para o Centro da Tela
+                                _objeto3D.Translacao(_width / 2, _height / 2, 0);
                             }
+
                             
+                            // Desenha Objeto3D                                
+                            CarregarTela();
 
                             _objeto3D.PreencherComVertices(dtGridVertices);
                         }
@@ -193,6 +219,28 @@ namespace ComputerGraphic
             finally
             {
                 Console.WriteLine("Executing finally block.");
+            }
+        }
+
+        private void ComputerGraphic_KeyDown(object sender, KeyEventArgs e)
+        {
+            //if (Convert.ToInt32(e.KeyCode) == 17) 
+            if (e.KeyCode == Keys.ControlKey)  
+            {
+                labelTest.Text = e.KeyValue.ToString();
+            }
+            
+        }
+
+        private void pictureBox_MouseClick(object sender, MouseEventArgs e)
+        {
+            if (_objeto3D != null)
+            {
+                int tX = e.X - (int)(_objeto3D.ListaVerticesAtuais[0].X);
+                int tY = e.Y - (int)(_objeto3D.ListaVerticesAtuais[0].Y);
+                _objeto3D.Translacao(tX,tY, 0);
+                // Desenha Objeto3D
+                CarregarTela();
             }
         }
     }
