@@ -22,12 +22,16 @@ namespace ComputerGraphic
         private int _width;
         private int _height;
 
+        private bool pX, pY, pZ;
+
         public ComputerGraphic()
         {
             InitializeComponent();
             _objeto3D = null;
             _width = pictureBox.Width;
             _height = pictureBox.Height;
+
+            pX = pY = pZ = false;
 
             pictureBox.MouseWheel += PictureBoxMouseWheel;
 
@@ -36,18 +40,32 @@ namespace ComputerGraphic
 
         private void PictureBoxMouseWheel(object sender, MouseEventArgs e)
         {
-            double escala;
-            if (e.Delta > 0)
+            double escala = e.Delta > 0 ? 1.05 : 0.95;           
+
+            if (pX)
             {
-                escala = 1.05;
-            }
+                _objeto3D.Escala(escala, 1, 1);
+            } 
             else
             {
-                escala = 0.95;
+                if (pY)
+                {
+                    _objeto3D.Escala(1, escala, 1);
+                }
+                else
+                {
+                    if (pZ)
+                    {
+                        _objeto3D.Escala(1, 1, escala);
+                    }
+                    else
+                    {
+                        _objeto3D.Escala(escala, escala, escala);
+                    }
+                }
             }
 
-            _objeto3D.Escala(escala, escala, escala);
-            CarregarTela();           
+            CarregarTela();
         }
 
         private void CarregarTela()
@@ -91,11 +109,42 @@ namespace ComputerGraphic
             return flag;
         }
 
+        private void ComputerGraphic_KeyDown(object sender, KeyEventArgs e)
+        {
+            switch (e.KeyCode)
+            {
+                case Keys.X:
+                    pX = true;
+                    break;
+                case Keys.Y: 
+                    pY = true; 
+                    break;
+                case Keys.Z: 
+                    pZ = true;
+                    break;
+            }
+        }
+
+        private void ComputerGraphic_KeyUp(object sender, KeyEventArgs e)
+        {
+            switch (e.KeyCode)
+            {
+                case Keys.X:
+                    pX = false;
+                    break;
+                case Keys.Y:
+                    pY = false;
+                    break;
+                case Keys.Z:
+                    pZ = false;
+                    break;
+            }
+        }
+
         private void abrirObjeto3D_Click(object sender, EventArgs e)
         {
             try
             {
-
                 using (var ofd = new OpenFileDialog())
                 {
                     //ofd.Filter = "txt fil"
@@ -220,26 +269,23 @@ namespace ComputerGraphic
             }
         }
 
-        private void ComputerGraphic_KeyDown(object sender, KeyEventArgs e)
-        {
-            //if (Convert.ToInt32(e.KeyCode) == 17) 
-            if (e.KeyCode == Keys.ControlKey)  
-            {
-                labelTest.Text = e.KeyValue.ToString();
-            }
-            
-        }
-
-        private void pictureBox_MouseClick(object sender, MouseEventArgs e)
+             
+        private void pictureBox_MouseMove(object sender, MouseEventArgs e)
         {
             if (_objeto3D != null)
             {
-                int tX = e.X - (int)(_objeto3D.ListaVerticesAtuais[0].X);
-                int tY = e.Y - (int)(_objeto3D.ListaVerticesAtuais[0].Y);
-                _objeto3D.Translacao(tX,tY, 0);
-                // Desenha Objeto3D
-                CarregarTela();
+                if (e.Button == MouseButtons.Left)
+                {
+                    int tX = e.X - (int)(_objeto3D.ListaVerticesAtuais[0].X);
+                    int tY = e.Y - (int)(_objeto3D.ListaVerticesAtuais[0].Y);
+                    _objeto3D.Translacao(tX, tY, 0);
+                    // Desenha Objeto3D
+                    CarregarTela();
+                }
+                
             }
         }
+
+        
     }
 }
