@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ComputerGraphic.Models.Rasterizacao;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
@@ -10,6 +11,7 @@ namespace ComputerGraphic.Models
 {
     public class Objeto3d
     {
+        public double[] Centroide { get; set; }
         public double[,] MatrizAcumulada { get; set; }
         public List<Vertice> ListaVerticesOriginais { get; set; }
         public List<Vertice> ListaVerticesAtuais { get; set; }
@@ -26,6 +28,7 @@ namespace ComputerGraphic.Models
         public Objeto3d()
         {
             InicializaMatriz();
+            Centroide = new double[3];
             ListaVerticesOriginais = new List<Vertice>();
             ListaVerticesAtuais = new List<Vertice>();
             ListaFaces = new List<List<int>>();
@@ -45,14 +48,22 @@ namespace ComputerGraphic.Models
 
         public void Desenhar(Bitmap imagem, PictureBox pictureBox)
         {
-
             if (ListaVerticesAtuais.Count > 1)
             {
-                int ate = ListaFaces.Count - 1;
-                for (int i = 0; i < ate; i++)
+                int totalFace = ListaFaces.Count ;
+                int totalVertice = ListaFaces[0].Count - 1;
+                for (int i = 0; i < totalFace; i++)
                 {
-                    // --> DUVIDA
-                    // Não precisa passar o Z, porque aqui considera ele como 0
+                    //for (int j = 0; j < totalVertice; j++)
+                    //{
+                    //    Vertice.PontoMedio(ListaVerticesAtuais[ListaFaces[i][j]].X, ListaVerticesAtuais[ListaFaces[i][j]].Y,
+                    //        ListaVerticesAtuais[ListaFaces[i][j + 1]].X, ListaVerticesAtuais[ListaFaces[i][j + 1]].Y, imagem);
+                    //}
+                    //Vertice.PontoMedio(ListaVerticesAtuais[ListaFaces[i][totalVertice]].X, ListaVerticesAtuais[ListaFaces[i][totalVertice]].Y,
+                    //   ListaVerticesAtuais[ListaFaces[i][0]].X, ListaVerticesAtuais[ListaFaces[i][0]].Y, imagem);
+
+                    // ########################################################################
+                    // PERGUNTAR ----> DEIXA FIXO ??????, sempre via ter só 3 faces ????
                     Vertice.PontoMedio(ListaVerticesAtuais[ListaFaces[i][0]].X, ListaVerticesAtuais[ListaFaces[i][0]].Y,
                         ListaVerticesAtuais[ListaFaces[i][1]].X, ListaVerticesAtuais[ListaFaces[i][1]].Y, imagem);
 
@@ -61,7 +72,11 @@ namespace ComputerGraphic.Models
 
                     Vertice.PontoMedio(ListaVerticesAtuais[ListaFaces[i][2]].X, ListaVerticesAtuais[ListaFaces[i][2]].Y,
                         ListaVerticesAtuais[ListaFaces[i][0]].X, ListaVerticesAtuais[ListaFaces[i][0]].Y, imagem);
-                }                
+                }
+
+                // Aqui arrumar para pintar, pois, tem que passar tambem a lista de faces
+                //EdgeTable lista = new EdgeTable(pictureBox.Height);
+                //lista.Inicializar(ListaVerticesAtuais);
 
                 pictureBox.Image = imagem;
             }
@@ -84,14 +99,25 @@ namespace ComputerGraphic.Models
         private void MatrizAcumuladaVertices()
         {
             int x, y, z;
+            double cX, cY, cZ;
+            cX = cY = cZ = 0;            
             ListaVerticesAtuais.Clear();
             foreach (var vertice in ListaVerticesOriginais)
             {
                 x = (int)(vertice.X * MatrizAcumulada[0, 0] + vertice.Y * MatrizAcumulada[0, 1] + vertice.Z * MatrizAcumulada[0, 2] + MatrizAcumulada[0, 3]);
                 y = (int)(vertice.X * MatrizAcumulada[1, 0] + vertice.Y * MatrizAcumulada[1, 1] + vertice.Z * MatrizAcumulada[1, 2] + MatrizAcumulada[1, 3]);
                 z = (int)(vertice.X * MatrizAcumulada[2, 0] + vertice.Y * MatrizAcumulada[2, 1] + vertice.Z * MatrizAcumulada[2, 2] + MatrizAcumulada[2, 3]);
+
+                cX += x;
+                cY += y;
+                cZ += z;
+                
                 ListaVerticesAtuais.Add(new Vertice(x, y, z));
             }
+
+            Centroide[0] = cX / ListaVerticesAtuais.Count;
+            Centroide[1] = cY / ListaVerticesAtuais.Count;
+            Centroide[2] = cZ / ListaVerticesAtuais.Count;
         }
 
         public void Translacao(int tX, int tY, int tZ)
@@ -129,14 +155,7 @@ namespace ComputerGraphic.Models
         }
 
         public void Escala(double sX, double sY, double sZ)
-        {
-            double[] cordenadasXYZ = new double[] {
-                ListaVerticesAtuais[0].X,
-                ListaVerticesAtuais[0].Y,
-                ListaVerticesAtuais[0].Z
-            };
-            
-
+        {   
             double[,] matrizEscala = new double[4, 4];
             double[,] matrizTranslacao_origem = new double[4, 4];
             double[,] matrizTranslacao_centroide = new double[4, 4];
@@ -156,13 +175,13 @@ namespace ComputerGraphic.Models
             matrizEscala[1, 1] = sY;
             matrizEscala[2, 2] = sZ;
 
-            matrizTranslacao_origem[0, 3] = -cordenadasXYZ[0]; // X
-            matrizTranslacao_origem[1, 3] = -cordenadasXYZ[1]; // Y
-            matrizTranslacao_origem[2, 3] = -cordenadasXYZ[2]; // Z
+            matrizTranslacao_origem[0, 3] = -Centroide[0]; // X
+            matrizTranslacao_origem[1, 3] = -Centroide[1]; // Y
+            matrizTranslacao_origem[2, 3] = -Centroide[2]; // Z
 
-            matrizTranslacao_centroide[0, 3] = cordenadasXYZ[0]; // X
-            matrizTranslacao_centroide[1, 3] = cordenadasXYZ[1]; // Y
-            matrizTranslacao_centroide[2, 3] = cordenadasXYZ[2]; // Y
+            matrizTranslacao_centroide[0, 3] = Centroide[0]; // X
+            matrizTranslacao_centroide[1, 3] = Centroide[1]; // Y
+            matrizTranslacao_centroide[2, 3] = Centroide[2]; // Y
 
 
             // NovaMA = T(cent) * E * T(ori) * MA
@@ -209,12 +228,6 @@ namespace ComputerGraphic.Models
 
         public void RotacaoX(int graus)
         {
-            double[] cordenadasXYZ = new double[] {
-                ListaVerticesAtuais[0].X,
-                ListaVerticesAtuais[0].Y,
-                ListaVerticesAtuais[0].Z
-            };
-
             double radiano = (Math.PI / 180) * graus;
             double[,] matrizRotacao = new double[4, 4];
             double[,] matrizTranslacao_origem = new double[4, 4];
@@ -224,32 +237,20 @@ namespace ComputerGraphic.Models
             double[,] novaMatrizAcumulada = new double[4, 4];
 
             // Matriz Identidade
-            for (int i = 0; i < 3; i++)
+            for (int i = 0; i < 4; i++)
             {
                 matrizRotacao[i, i] = 1;
                 matrizTranslacao_origem[i, i] = 1;
                 matrizTranslacao_centroide[i, i] = 1;
             }
 
-            matrizTranslacao_origem[0, 3] = -cordenadasXYZ[0];
-            matrizTranslacao_origem[1, 3] = -cordenadasXYZ[1];
-            matrizTranslacao_origem[2, 3] = -cordenadasXYZ[2];
+            matrizTranslacao_origem[0, 3] = -Centroide[0];
+            matrizTranslacao_origem[1, 3] = -Centroide[1];
+            matrizTranslacao_origem[2, 3] = -Centroide[2];
 
-            matrizTranslacao_centroide[0, 3] = cordenadasXYZ[0];
-            matrizTranslacao_centroide[1, 3] = cordenadasXYZ[1];
-            matrizTranslacao_centroide[2, 3] = cordenadasXYZ[2];
-
-            // Para Z
-            //matrizRotacao[0, 0] = Math.Cos(radiano);
-            //matrizRotacao[0, 1] = -Math.Sin(radiano);
-            //matrizRotacao[1, 0] = Math.Sin(radiano);
-            //matrizRotacao[1, 1] = Math.Cos(radiano);
-
-            // Para Y
-            //matrizRotacao[0, 0] = Math.Cos(radiano);
-            //matrizRotacao[0, 2] = Math.Sin(radiano);
-            //matrizRotacao[2, 0] = -Math.Sin(radiano);
-            //matrizRotacao[2, 2] = Math.Cos(radiano);
+            matrizTranslacao_centroide[0, 3] = Centroide[0];
+            matrizTranslacao_centroide[1, 3] = Centroide[1];
+            matrizTranslacao_centroide[2, 3] = Centroide[2];
 
             // Para X
             matrizRotacao[1, 1] = Math.Cos(radiano);
@@ -296,9 +297,155 @@ namespace ComputerGraphic.Models
             this.MatrizAcumulada = novaMatrizAcumulada;
 
             MatrizAcumuladaVertices();
-
-
         }
+
+        public void RotacaoY(int graus)
+        {
+            double radiano = (Math.PI / 180) * graus;
+            double[,] matrizRotacao = new double[4, 4];
+            double[,] matrizTranslacao_origem = new double[4, 4];
+            double[,] matrizTranslacao_centroide = new double[4, 4];
+            double[,] matrizResultante_1 = new double[4, 4];
+            double[,] matrizResultante_2 = new double[4, 4];
+            double[,] novaMatrizAcumulada = new double[4, 4];
+
+            // Matriz Identidade
+            for (int i = 0; i < 4; i++)
+            {
+                matrizRotacao[i, i] = 1;
+                matrizTranslacao_origem[i, i] = 1;
+                matrizTranslacao_centroide[i, i] = 1;
+            }
+
+            matrizTranslacao_origem[0, 3] = -Centroide[0];
+            matrizTranslacao_origem[1, 3] = -Centroide[1];
+            matrizTranslacao_origem[2, 3] = -Centroide[2];
+
+            matrizTranslacao_centroide[0, 3] = Centroide[0];
+            matrizTranslacao_centroide[1, 3] = Centroide[1];
+            matrizTranslacao_centroide[2, 3] = Centroide[2];
+
+            // Para Y
+            matrizRotacao[0, 0] = Math.Cos(radiano);
+            matrizRotacao[0, 2] = Math.Sin(radiano);
+            matrizRotacao[2, 0] = -Math.Sin(radiano);
+            matrizRotacao[2, 2] = Math.Cos(radiano);
+
+
+            // MA_Nova = T(cent) * R * T(ori) * P(MA)
+            // matrizResultante_1 = T(cent) * R 
+            for (int linha = 0; linha < 4; linha++)
+            {
+                for (int coluna = 0; coluna < 4; coluna++)
+                {
+                    for (int i = 0; i < 4; i++)
+                    {
+                        matrizResultante_1[linha, coluna] += matrizTranslacao_centroide[linha, i] * matrizRotacao[i, coluna];
+                    }
+                }
+            }
+            // matrizResultante_2 = matrizResultante_1 * T(ori)
+            for (int linha = 0; linha < 4; linha++)
+            {
+                for (int coluna = 0; coluna < 4; coluna++)
+                {
+                    for (int i = 0; i < 4; i++)
+                    {
+                        matrizResultante_2[linha, coluna] += matrizResultante_1[linha, i] * matrizTranslacao_origem[i, coluna];
+                    }
+                }
+            }
+            // Nova Matriz Acumulada
+            // Nova_MatrizAcumulada = matrizResultante_2 * MatrizAcumulada
+            for (int linha = 0; linha < 4; linha++)
+            {
+                for (int coluna = 0; coluna < 4; coluna++)
+                {
+                    for (int i = 0; i < 4; i++)
+                    {
+                        novaMatrizAcumulada[linha, coluna] += matrizResultante_2[linha, i] * this.MatrizAcumulada[i, coluna];
+                    }
+                }
+            }
+
+            this.MatrizAcumulada = novaMatrizAcumulada;
+
+            MatrizAcumuladaVertices();
+        }
+
+        public void RotacaoZ(int graus)
+        {
+            double radiano = (Math.PI / 180) * graus;
+            double[,] matrizRotacao = new double[4, 4];
+            double[,] matrizTranslacao_origem = new double[4, 4];
+            double[,] matrizTranslacao_centroide = new double[4, 4];
+            double[,] matrizResultante_1 = new double[4, 4];
+            double[,] matrizResultante_2 = new double[4, 4];
+            double[,] novaMatrizAcumulada = new double[4, 4];
+
+            // Matriz Identidade
+            for (int i = 0; i < 4; i++)
+            {
+                matrizRotacao[i, i] = 1;
+                matrizTranslacao_origem[i, i] = 1;
+                matrizTranslacao_centroide[i, i] = 1;
+            }
+
+            matrizTranslacao_origem[0, 3] = -Centroide[0];
+            matrizTranslacao_origem[1, 3] = -Centroide[1];
+            matrizTranslacao_origem[2, 3] = -Centroide[2];
+
+            matrizTranslacao_centroide[0, 3] = Centroide[0];
+            matrizTranslacao_centroide[1, 3] = Centroide[1];
+            matrizTranslacao_centroide[2, 3] = Centroide[2];
+
+            // Para Z
+            matrizRotacao[0, 0] = Math.Cos(radiano);
+            matrizRotacao[0, 1] = -Math.Sin(radiano);
+            matrizRotacao[1, 0] = Math.Sin(radiano);
+            matrizRotacao[1, 1] = Math.Cos(radiano);
+
+            // MA_Nova = T(cent) * R * T(ori) * P(MA)
+            // matrizResultante_1 = T(cent) * R 
+            for (int linha = 0; linha < 4; linha++)
+            {
+                for (int coluna = 0; coluna < 4; coluna++)
+                {
+                    for (int i = 0; i < 4; i++)
+                    {
+                        matrizResultante_1[linha, coluna] += matrizTranslacao_centroide[linha, i] * matrizRotacao[i, coluna];
+                    }
+                }
+            }
+            // matrizResultante_2 = matrizResultante_1 * T(ori)
+            for (int linha = 0; linha < 4; linha++)
+            {
+                for (int coluna = 0; coluna < 4; coluna++)
+                {
+                    for (int i = 0; i < 4; i++)
+                    {
+                        matrizResultante_2[linha, coluna] += matrizResultante_1[linha, i] * matrizTranslacao_origem[i, coluna];
+                    }
+                }
+            }
+            // Nova Matriz Acumulada
+            // Nova_MatrizAcumulada = matrizResultante_2 * MatrizAcumulada
+            for (int linha = 0; linha < 4; linha++)
+            {
+                for (int coluna = 0; coluna < 4; coluna++)
+                {
+                    for (int i = 0; i < 4; i++)
+                    {
+                        novaMatrizAcumulada[linha, coluna] += matrizResultante_2[linha, i] * this.MatrizAcumulada[i, coluna];
+                    }
+                }
+            }
+
+            this.MatrizAcumulada = novaMatrizAcumulada;
+
+            MatrizAcumuladaVertices();
+        }
+
 
 
     }

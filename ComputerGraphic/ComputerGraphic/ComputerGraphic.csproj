@@ -53,6 +53,8 @@
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Models\Objeto3d.cs" />
+    <Compile Include="Models\Rasterizacao\EdgeTable.cs" />
+    <Compile Include="Models\Rasterizacao\ItemEdgeTable.cs" />
     <Compile Include="Models\Vertice.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
