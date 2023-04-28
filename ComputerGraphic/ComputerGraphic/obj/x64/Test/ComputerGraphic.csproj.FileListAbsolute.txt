@@ -1,0 +1,6 @@
+D:\GitHub\editor-grafico-3d\ComputerGraphic\ComputerGraphic\obj\x64\Test\ComputerGraphic.csproj.AssemblyReference.cache
+D:\GitHub\editor-grafico-3d\ComputerGraphic\ComputerGraphic\obj\x64\Test\ComputerGraphic.csproj.SuggestedBindingRedirects.cache
+D:\GitHub\editor-grafico-3d\ComputerGraphic\ComputerGraphic\obj\x64\Test\ComputerGraphic.ComputerGraphic.resources
+D:\GitHub\editor-grafico-3d\ComputerGraphic\ComputerGraphic\obj\x64\Test\ComputerGraphic.Properties.Resources.resources
+D:\GitHub\editor-grafico-3d\ComputerGraphic\ComputerGraphic\obj\x64\Test\ComputerGraphic.csproj.GenerateResource.cache
+D:\GitHub\editor-grafico-3d\ComputerGraphic\ComputerGraphic\obj\x64\Test\ComputerGraphic.csproj.CoreCompileInputs.cache

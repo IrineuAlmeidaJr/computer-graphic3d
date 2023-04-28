@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Drawing.Imaging;
 using System.Globalization;
 using System.IO;
 using System.Linq;
@@ -34,6 +35,10 @@ namespace ComputerGraphic
             pX = pY = pZ = false;
 
             pictureBox.MouseWheel += PictureBoxMouseWheel;
+
+            _imagem =
+               new Bitmap(_width, _height, System.Drawing.Imaging.PixelFormat.Format24bppRgb);
+            pictureBox.Image = _imagem;
 
             CarregarTela();
         }
@@ -197,13 +202,39 @@ namespace ComputerGraphic
             CarregarTela();
         }
 
+        private unsafe void PreencheComBranco(Bitmap imagem)
+        {
+            // Obtém informações do Bitmap
+            BitmapData bmpData = imagem.LockBits(new Rectangle(0, 0, imagem.Width, imagem.Height), ImageLockMode.ReadWrite, imagem.PixelFormat);
+
+            // Calcula o tamanho de cada linha em bytes
+            int linhaSize = bmpData.Stride;
+
+            // Obtém um ponteiro para o início do Bitmap
+            byte* ptr = (byte*)bmpData.Scan0;
+
+            // Preenche cada pixel com a cor branca
+            byte corBranca = 255;
+            for (int y = 0; y < imagem.Height; y++)
+            {
+                for (int x = 0; x < imagem.Width; x++)
+                {
+                    ptr[x * 3] = corBranca;
+                    ptr[x * 3 + 1] = corBranca;
+                    ptr[x * 3 + 2] = corBranca;
+                }
+                ptr += linhaSize;
+            }
+
+            // Libera o Bitmap
+            imagem.UnlockBits(bmpData);
+        }
+
+
         private void CarregarTela()
         {
-            _imagem =
-                new Bitmap(_width, _height, System.Drawing.Imaging.PixelFormat.Format32bppPArgb);
-            Graphics graphics = Graphics.FromImage(_imagem);
-            pictureBox.Image = _imagem; 
-            
+            PreencheComBranco(_imagem);
+
             if (_objeto3D != null )
             {
                 _objeto3D.Desenhar(_imagem, pictureBox);
