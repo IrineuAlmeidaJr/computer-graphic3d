@@ -49,9 +49,13 @@ namespace ComputerGraphic
             {
                 using (var ofd = new OpenFileDialog())
                 {
-                    //ofd.Filter = "txt fil"
                     if (ofd.ShowDialog() == DialogResult.OK)
                     {
+                        if (_objeto3D != null)
+                        {
+                            _objeto3D.LimpaTela(_imagem, pictureBox);
+                        }
+
                         using (StreamReader arquivo = new StreamReader(ofd.FileName))
                         {
                             double x, y, z;
@@ -149,8 +153,7 @@ namespace ComputerGraphic
                                 // Translada para o Centro da Tela
                                 _objeto3D.Translacao(_width / 2, _height / 2, 0);
                             }
-
-                            
+                           
                             // Desenha Objeto3D                                
                             CarregarTela();
 
@@ -174,72 +177,51 @@ namespace ComputerGraphic
 
         private void PictureBoxMouseWheel(object sender, MouseEventArgs e)
         {
-            double escala = e.Delta > 0 ? 1.05 : 0.95;           
-
-            if (pX)
+            double escala = e.Delta > 0 ? 1.05 : 0.95;
+            if (_objeto3D != null)
             {
-                _objeto3D.Escala(escala, 1, 1);
-            } 
-            else
-            {
-                if (pY)
+                if (pX)
                 {
-                    _objeto3D.Escala(1, escala, 1);
+                    _objeto3D.LimpaTela(_imagem, pictureBox);
+                    _objeto3D.Escala(escala, 1, 1);
+                    CarregarTela();
                 }
                 else
                 {
-                    if (pZ)
+                    if (pY)
                     {
-                        _objeto3D.Escala(1, 1, escala);
+                        _objeto3D.LimpaTela(_imagem, pictureBox);
+                        _objeto3D.Escala(1, escala, 1);
+                        CarregarTela();
                     }
                     else
                     {
-                        _objeto3D.Escala(escala, escala, escala);
+                        if (pZ)
+                        {
+                            _objeto3D.LimpaTela(_imagem, pictureBox);
+                            _objeto3D.Escala(1, 1, escala);
+                            CarregarTela();
+                        }
+                        else
+                        {
+                            _objeto3D.LimpaTela(_imagem, pictureBox);
+                            _objeto3D.Escala(escala, escala, escala);
+                            CarregarTela();
+                        }
                     }
                 }
-            }
-
-            CarregarTela();
+                
+            }        
         }
 
-        private unsafe void PreencheComBranco(Bitmap imagem)
-        {
-            // Obtém informações do Bitmap
-            BitmapData bmpData = imagem.LockBits(new Rectangle(0, 0, imagem.Width, imagem.Height), ImageLockMode.ReadWrite, imagem.PixelFormat);
-
-            // Calcula o tamanho de cada linha em bytes
-            int linhaSize = bmpData.Stride;
-
-            // Obtém um ponteiro para o início do Bitmap
-            byte* ptr = (byte*)bmpData.Scan0;
-
-            // Preenche cada pixel com a cor branca
-            byte corBranca = 255;
-            for (int y = 0; y < imagem.Height; y++)
-            {
-                for (int x = 0; x < imagem.Width; x++)
-                {
-                    ptr[x * 3] = corBranca;
-                    ptr[x * 3 + 1] = corBranca;
-                    ptr[x * 3 + 2] = corBranca;
-                }
-                ptr += linhaSize;
-            }
-
-            // Libera o Bitmap
-            imagem.UnlockBits(bmpData);
-        }
 
 
         private void CarregarTela()
         {
-            PreencheComBranco(_imagem);
-
             if (_objeto3D != null )
             {
-                _objeto3D.Desenhar(_imagem, pictureBox);
-            }
-            
+                _objeto3D.Desenhar(_imagem, pictureBox, 255);
+            }            
         }
 
         public bool FazEscala(StreamReader arquivo)
@@ -306,9 +288,10 @@ namespace ComputerGraphic
         private void pictureBox_MouseMove(object sender, MouseEventArgs e)
         {
             if (_objeto3D != null)
-            {
+            {                
                 if (e.Button == MouseButtons.Left)
                 {
+                    _objeto3D.LimpaTela(_imagem, pictureBox);
                     int tX = e.X - (int)(_objeto3D.ListaVerticesAtuais[0].X);
                     int tY = e.Y - (int)(_objeto3D.ListaVerticesAtuais[0].Y);
                     _objeto3D.Translacao(tX, tY, 0);
@@ -317,10 +300,11 @@ namespace ComputerGraphic
                 }                
 
                 if (e.Button == MouseButtons.Right)
-                {
+                {                    
                     int grau = e.Delta > 0 ? 2 : -2;
                     if (pX)
                     {
+                        _objeto3D.LimpaTela(_imagem, pictureBox);
                         _objeto3D.RotacaoX(grau);
                         CarregarTela();
                     }
@@ -328,6 +312,7 @@ namespace ComputerGraphic
                     {
                         if (pY)
                         {
+                            _objeto3D.LimpaTela(_imagem, pictureBox);
                             _objeto3D.RotacaoY(grau);
                             CarregarTela();
                         }
@@ -335,6 +320,7 @@ namespace ComputerGraphic
                         {
                             if (pZ)
                             {
+                                _objeto3D.LimpaTela(_imagem, pictureBox);
                                 _objeto3D.RotacaoZ(grau);
                                 CarregarTela();
                             }

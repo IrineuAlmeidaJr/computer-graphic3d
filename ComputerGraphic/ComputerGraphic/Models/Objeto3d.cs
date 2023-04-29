@@ -46,7 +46,7 @@ namespace ComputerGraphic.Models
             }
         }
 
-        public void Desenhar(Bitmap imagem, PictureBox pictureBox)
+        public void Desenhar(Bitmap imagem, PictureBox pictureBox, int cor)
         {
             if (ListaVerticesAtuais.Count > 1)
             {
@@ -65,18 +65,40 @@ namespace ComputerGraphic.Models
                     // ########################################################################
                     // PERGUNTAR ----> DEIXA FIXO ??????, sempre via ter só 3 faces ????
                     Vertice.PontoMedio(ListaVerticesAtuais[ListaFaces[i][0]].X, ListaVerticesAtuais[ListaFaces[i][0]].Y,
-                        ListaVerticesAtuais[ListaFaces[i][1]].X, ListaVerticesAtuais[ListaFaces[i][1]].Y, imagem);
+                        ListaVerticesAtuais[ListaFaces[i][1]].X, ListaVerticesAtuais[ListaFaces[i][1]].Y, imagem, 255);
 
                     Vertice.PontoMedio(ListaVerticesAtuais[ListaFaces[i][1]].X, ListaVerticesAtuais[ListaFaces[i][1]].Y,
-                        ListaVerticesAtuais[ListaFaces[i][2]].X, ListaVerticesAtuais[ListaFaces[i][2]].Y, imagem);
+                        ListaVerticesAtuais[ListaFaces[i][2]].X, ListaVerticesAtuais[ListaFaces[i][2]].Y, imagem, 255);
 
                     Vertice.PontoMedio(ListaVerticesAtuais[ListaFaces[i][2]].X, ListaVerticesAtuais[ListaFaces[i][2]].Y,
-                        ListaVerticesAtuais[ListaFaces[i][0]].X, ListaVerticesAtuais[ListaFaces[i][0]].Y, imagem);
+                        ListaVerticesAtuais[ListaFaces[i][0]].X, ListaVerticesAtuais[ListaFaces[i][0]].Y, imagem, 255);
                 }
 
                 // Aqui arrumar para pintar, pois, tem que passar tambem a lista de faces
                 //EdgeTable lista = new EdgeTable(pictureBox.Height);
                 //lista.Inicializar(ListaVerticesAtuais);
+
+                pictureBox.Image = imagem;
+            }
+        }
+
+        public void LimpaTela(Bitmap imagem, PictureBox pictureBox)
+        {
+            if (ListaVerticesAtuais.Count > 1)
+            {
+                int totalFace = ListaFaces.Count;
+                int totalVertice = ListaFaces[0].Count - 1;
+                for (int i = 0; i < totalFace; i++)
+                {
+                    Vertice.PontoMedio(ListaVerticesAtuais[ListaFaces[i][0]].X, ListaVerticesAtuais[ListaFaces[i][0]].Y,
+                        ListaVerticesAtuais[ListaFaces[i][1]].X, ListaVerticesAtuais[ListaFaces[i][1]].Y, imagem, 0);
+
+                    Vertice.PontoMedio(ListaVerticesAtuais[ListaFaces[i][1]].X, ListaVerticesAtuais[ListaFaces[i][1]].Y,
+                        ListaVerticesAtuais[ListaFaces[i][2]].X, ListaVerticesAtuais[ListaFaces[i][2]].Y, imagem, 0);
+
+                    Vertice.PontoMedio(ListaVerticesAtuais[ListaFaces[i][2]].X, ListaVerticesAtuais[ListaFaces[i][2]].Y,
+                        ListaVerticesAtuais[ListaFaces[i][0]].X, ListaVerticesAtuais[ListaFaces[i][0]].Y, imagem, 0);
+                }
 
                 pictureBox.Image = imagem;
             }
