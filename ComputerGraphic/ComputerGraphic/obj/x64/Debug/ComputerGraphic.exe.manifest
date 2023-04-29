@@ -42,14 +42,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="ComputerGraphic.exe" size="30176">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="ComputerGraphic.exe" size="30688">
       <assemblyIdentity name="ComputerGraphic" version="1.0.0.0" language="neutral" processorArchitecture="amd64" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>fAqeFM7SEO6kTMicS5cY4KSHX8gGAY3JZsjAlxd/J1g=</dsig:DigestValue>
+        <dsig:DigestValue>w/LlXfuwco/DFNvFcIASbm+Igdnoa1RPOAHIdhc4V4I=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>

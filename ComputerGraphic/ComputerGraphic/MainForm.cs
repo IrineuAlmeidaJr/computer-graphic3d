@@ -22,6 +22,7 @@ namespace ComputerGraphic
         private Bitmap _imagem;
         private int _width;
         private int _height;
+        private bool _desenha;
 
         private bool pX, pY, pZ;
 
@@ -31,6 +32,8 @@ namespace ComputerGraphic
             _objeto3D = null;
             _width = pictureBox.Width;
             _height = pictureBox.Height;
+            
+            _desenha = true;
 
             pX = pY = pZ = false;
 
@@ -40,7 +43,6 @@ namespace ComputerGraphic
                new Bitmap(_width, _height, System.Drawing.Imaging.PixelFormat.Format24bppRgb);
             pictureBox.Image = _imagem;
 
-            CarregarTela();
         }
 
         private void abrirObjeto3D_Click(object sender, EventArgs e)
@@ -64,7 +66,6 @@ namespace ComputerGraphic
                             string[] dadosFace;
 
                             _objeto3D = new Objeto3d();
-                            CarregarTela();
 
                             NumberFormatInfo provider = new NumberFormatInfo();
                             provider.NumberDecimalSeparator = ".";
@@ -153,9 +154,8 @@ namespace ComputerGraphic
                                 // Translada para o Centro da Tela
                                 _objeto3D.Translacao(_width / 2, _height / 2, 0);
                             }
-                           
                             // Desenha Objeto3D                                
-                            CarregarTela();
+                            _objeto3D.Desenhar(_imagem, pictureBox, 255);
 
                             _objeto3D.PreencherComVertices(dtGridVertices);
                         }
@@ -180,49 +180,43 @@ namespace ComputerGraphic
             double escala = e.Delta > 0 ? 1.05 : 0.95;
             if (_objeto3D != null)
             {
-                if (pX)
+                if (_desenha)
                 {
-                    _objeto3D.LimpaTela(_imagem, pictureBox);
-                    _objeto3D.Escala(escala, 1, 1);
-                    CarregarTela();
-                }
-                else
-                {
-                    if (pY)
+                    if (pX)
                     {
                         _objeto3D.LimpaTela(_imagem, pictureBox);
-                        _objeto3D.Escala(1, escala, 1);
-                        CarregarTela();
+                        _objeto3D.Escala(escala, 1, 1);
+                        _objeto3D.Desenhar(_imagem, pictureBox, 255);
                     }
                     else
                     {
-                        if (pZ)
+                        if (pY)
                         {
                             _objeto3D.LimpaTela(_imagem, pictureBox);
-                            _objeto3D.Escala(1, 1, escala);
-                            CarregarTela();
+                            _objeto3D.Escala(1, escala, 1);
+                            _objeto3D.Desenhar(_imagem, pictureBox, 255);
                         }
                         else
                         {
-                            _objeto3D.LimpaTela(_imagem, pictureBox);
-                            _objeto3D.Escala(escala, escala, escala);
-                            CarregarTela();
+                            if (pZ)
+                            {
+                                _objeto3D.LimpaTela(_imagem, pictureBox);
+                                _objeto3D.Escala(1, 1, escala);
+                                _objeto3D.Desenhar(_imagem, pictureBox, 255);
+                            }
+                            else
+                            {
+                                _objeto3D.LimpaTela(_imagem, pictureBox);
+                                _objeto3D.Escala(escala, escala, escala);
+                                _objeto3D.Desenhar(_imagem, pictureBox, 255);
+                            }
                         }
                     }
                 }
-                
+                _desenha = !_desenha;
             }        
         }
 
-
-
-        private void CarregarTela()
-        {
-            if (_objeto3D != null )
-            {
-                _objeto3D.Desenhar(_imagem, pictureBox, 255);
-            }            
-        }
 
         public bool FazEscala(StreamReader arquivo)
         {
@@ -282,57 +276,56 @@ namespace ComputerGraphic
                     break;
             }
         }
-
-        
+                
              
         private void pictureBox_MouseMove(object sender, MouseEventArgs e)
         {
             if (_objeto3D != null)
-            {                
-                if (e.Button == MouseButtons.Left)
+            {
+                if (_desenha)
                 {
-                    _objeto3D.LimpaTela(_imagem, pictureBox);
-                    int tX = e.X - (int)(_objeto3D.ListaVerticesAtuais[0].X);
-                    int tY = e.Y - (int)(_objeto3D.ListaVerticesAtuais[0].Y);
-                    _objeto3D.Translacao(tX, tY, 0);
-                    // Desenha Objeto3D
-                    CarregarTela();
-                }                
-
-                if (e.Button == MouseButtons.Right)
-                {                    
-                    int grau = e.Delta > 0 ? 2 : -2;
-                    if (pX)
+                    if (e.Button == MouseButtons.Left)
                     {
                         _objeto3D.LimpaTela(_imagem, pictureBox);
-                        _objeto3D.RotacaoX(grau);
-                        CarregarTela();
+                        int tX = e.X - (int)(_objeto3D.ListaVerticesAtuais[0].X);
+                        int tY = e.Y - (int)(_objeto3D.ListaVerticesAtuais[0].Y);
+                        _objeto3D.Translacao(tX, tY, 0);
+                        // Desenha Objeto3D
+
+                        _objeto3D.Desenhar(_imagem, pictureBox, 255);
                     }
-                    else
+
+                    if (e.Button == MouseButtons.Right)
                     {
-                        if (pY)
+                        int grau = e.Delta > 0 ? 2 : -2;
+                        if (pX)
                         {
                             _objeto3D.LimpaTela(_imagem, pictureBox);
-                            _objeto3D.RotacaoY(grau);
-                            CarregarTela();
+                            _objeto3D.RotacaoX(grau);
+                            _objeto3D.Desenhar(_imagem, pictureBox, 255);
                         }
                         else
                         {
-                            if (pZ)
+                            if (pY)
                             {
                                 _objeto3D.LimpaTela(_imagem, pictureBox);
-                                _objeto3D.RotacaoZ(grau);
-                                CarregarTela();
+                                _objeto3D.RotacaoY(grau);
+                                _objeto3D.Desenhar(_imagem, pictureBox, 255);
+                            }
+                            else
+                            {
+                                if (pZ)
+                                {
+                                    _objeto3D.LimpaTela(_imagem, pictureBox);
+                                    _objeto3D.RotacaoZ(grau);
+                                    _objeto3D.Desenhar(_imagem, pictureBox, 255);
+                                }
                             }
                         }
                     }
-                    
-                }                
-
-            }
-
-            
-
+                }
+                _desenha = !_desenha;
+            }  
 
         }
 

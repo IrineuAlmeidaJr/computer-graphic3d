@@ -26,21 +26,23 @@ namespace ComputerGraphic.Models
             return $"X:{X}; Y:{Y}";
         }
 
-        private unsafe static void PosicionaXY(byte* ptr, int width, int height, int padding, int x, int y, int cor)
+        private unsafe static void PosicionaX(byte* ptr, int width, int height, int padding, int x, int y, int cor)
         {
             if (x > 0 && x < width && y > 0 && y < height)
             { 
-                int deslocamento = (y * (width * 3 + padding)) + (x * 3);
-                ptr += deslocamento;
+                ptr += x * 3;
 
                 *(ptr++) = (byte)cor;
-                *(ptr++) = (byte)0;
-                *(ptr) = (byte)0;
+                *(ptr++) = (byte)cor;
+                *(ptr++) = (byte)cor;
+
+                ptr += Math.Abs(width - 3 * x) + padding;
+
             }
 
         }
 
-        public static unsafe void DesenhaPontoMedio(double x1, double y1, double x2, double y2, byte* ptrIni, Bitmap imagem, int padding, int cor)
+        public static unsafe void DesenhaPontoMedio(double x1, double y1, double x2, double y2, byte* ptr, Bitmap imagem, int padding, int cor)
         {   
             int declive;
             double deltaX, deltaY, incE, incNE, d, x, y;
@@ -52,7 +54,7 @@ namespace ComputerGraphic.Models
             {
                 if (x1 > x2)
                 {
-                    DesenhaPontoMedio(x2, y2, x1, y1, ptrIni, imagem, padding, cor);
+                    DesenhaPontoMedio(x2, y2, x1, y1, ptr, imagem, padding, cor);
                     return;
                 }
 
@@ -66,9 +68,12 @@ namespace ComputerGraphic.Models
                 incNE = 2 * (deltaY - deltaX);
                 d = 2 * deltaY - deltaX;
                 y = y1;
+                // posiciona no Y de início
+                ptr += (int)y * (imagem.Width * 3 + padding);
+                // ---------------
                 for (x = x1; x <= x2; x++)
                 {
-                    PosicionaXY(ptrIni, imagem.Width, imagem.Height, padding, (int)x, (int)y, cor);
+                    PosicionaX(ptr, imagem.Width, imagem.Height, padding, (int)x, (int)y, cor);
                     if (d <= 0)
                     {
                         d += incE;
@@ -77,6 +82,11 @@ namespace ComputerGraphic.Models
                     {
                         d += incNE;
                         y += declive;
+                        // Ponteiro anda uma linha
+                        if (declive < 0)
+                            ptr -= (imagem.Width * 3 + padding);
+                        else
+                            ptr += imagem.Width * 3 + padding;
                     }
                 }
             }
@@ -84,7 +94,7 @@ namespace ComputerGraphic.Models
             {
                 if (y1 > y2)
                 {
-                    DesenhaPontoMedio(x2, y2, x1, y1, ptrIni, imagem, padding, cor);
+                    DesenhaPontoMedio(x2, y2, x1, y1, ptr, imagem, padding, cor);
                     return;
                 }
 
@@ -99,9 +109,12 @@ namespace ComputerGraphic.Models
                 incNE = 2 * (deltaX - deltaY);
                 d = 2 * deltaX - deltaY;
                 x = x1;
+                // posiciona no Y de início
+                ptr += (int)y1 * (imagem.Width * 3 + padding);
+                // ---------------
                 for (y = y1; y <= y2; y++)
                 {
-                    PosicionaXY(ptrIni, imagem.Width, imagem.Height, padding, (int)x, (int)y, cor);
+                    PosicionaX(ptr, imagem.Width, imagem.Height, padding, (int)x, (int)y, cor);
                     if (d <= 0)
                     {
                         d += incE;
@@ -111,6 +124,8 @@ namespace ComputerGraphic.Models
                         d += incNE;
                         x += declive;
                     }
+                    // Ponteiro anda uma linha
+                    ptr += imagem.Width * 3 + padding;
                 }
             }
         }
