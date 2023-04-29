@@ -157,7 +157,7 @@ namespace ComputerGraphic
                             // Desenha Objeto3D                                
                             _objeto3D.Desenhar(_imagem, pictureBox, 255);
 
-                            _objeto3D.PreencherComVertices(dtGridVertices);
+                            //_objeto3D.PreencherComVertices(dtGridVertices);
                         }
                        
                     }
@@ -297,7 +297,7 @@ namespace ComputerGraphic
 
                     if (e.Button == MouseButtons.Right)
                     {
-                        int grau = e.Delta > 0 ? 2 : -2;
+                        int grau = e.Delta > 0 ? 5 : -5;
                         if (pX)
                         {
                             _objeto3D.LimpaTela(_imagem, pictureBox);
