@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -27,7 +28,7 @@ namespace ComputerGraphic.Models
 
         public Objeto3d()
         {
-            InicializaMatriz();
+            InicializaMatrizAcumulada();
             Centroide = new double[3];
             ListaVerticesOriginais = new List<Vertice>();
             ListaVerticesAtuais = new List<Vertice>();
@@ -37,7 +38,7 @@ namespace ComputerGraphic.Models
 
         }
 
-        private void InicializaMatriz()
+        private void InicializaMatrizAcumulada()
         {
             MatrizAcumulada = new double[4, 4];
             for (int i = 0; i < 4; i++)
@@ -46,7 +47,124 @@ namespace ComputerGraphic.Models
             }
         }
 
-        public void Desenhar(Bitmap imagem, PictureBox pictureBox, int cor)
+        public void MudarVista(char atualP1, char atualP2, char novoP1, char novoP2)
+        {
+            double aux;
+            if (atualP1 == 'X' && atualP2 == 'Y')
+            {
+                if (novoP1 == 'X' && novoP2 == 'Z')
+                {
+                    // --> X, Z, Y
+                    foreach (var vertice in ListaVerticesAtuais)
+                    {                        
+                        // aux = Y                        
+                        aux = vertice.Y;
+                        // Y = Z
+                        vertice.Y = vertice.Z;
+                        // Z = Y
+                        vertice.Z = aux;    
+                    }
+                }
+                else
+                {
+                    // --> Y, Z, X
+                    foreach (var vertice in ListaVerticesAtuais)
+                    {
+                        // aux = Y                        
+                        aux = vertice.Y;
+                        // Y = Z
+                        vertice.Y = vertice.Z;
+                        // Z = Y
+                        vertice.Z = aux;
+
+                        aux = vertice.X;
+                        vertice.X = vertice.Z;
+                        vertice.Z = aux;
+                        // --> Y, Z, X
+                    }                 
+                }
+            }
+            else
+            {
+                if (atualP1 == 'X' && atualP2 == 'Z')
+                {
+                    if (novoP1 == 'X' && novoP2 == 'Y')
+                    {
+                        // --> X, Y, Z
+                        foreach (var vertice in ListaVerticesAtuais)
+                        {
+                            // aux = Y                        
+                            aux = vertice.Y;
+                            // Y = Z
+                            vertice.Y = vertice.Z;
+                            // Z = aux
+                            vertice.Z = aux;
+                        }
+                    }
+                    else
+                    {
+                        // --> Y, Z, X
+                        foreach (var vertice in ListaVerticesAtuais)
+                        {
+                            // aux = X                        
+                            aux = vertice.X;
+                            // X = Z
+                            vertice.X = vertice.Z;
+                            // Z = aux
+                            vertice.Z = aux;
+                        }                       
+                    }
+                }
+                else
+                {
+                    if (atualP1 == 'Y' && atualP2 == 'Z')
+                    {
+                        if (novoP1 == 'X' && novoP2 == 'Y')
+                        {
+                            // --> X, Y, Z
+                            foreach (var vertice in ListaVerticesAtuais)
+                            {
+                                // aux = X                        
+                                aux = vertice.X;
+                                // Y = Z
+                                vertice.X = vertice.Y;
+                                // Z = aux
+                                vertice.Y = aux;
+                                // --> Z, Y, X
+
+                                // aux = X                        
+                                aux = vertice.X;
+                                // X = Z
+                                vertice.X = vertice.Z;
+                                // Z = aux
+                                vertice.Z = aux;
+                            }
+                        }
+                        else
+                        {
+                            // --> Y, Z, X
+
+                            // --> X, Z, Y
+                            foreach (var vertice in ListaVerticesAtuais)
+                            {
+                                // aux = X                        
+                                aux = vertice.X;
+                                // X = Z
+                                vertice.X = vertice.Z;
+                                // Z = X
+                                vertice.Z = aux;
+                            }
+                        }
+                    }
+                }
+            }
+
+
+            InicializaMatrizAcumulada();
+            ListaVerticesOriginais = new List<Vertice>(ListaVerticesAtuais);
+        }
+
+        public void Desenhar(Bitmap imagem, PictureBox pictureBox, int corPincel)
         {
             if (ListaVerticesAtuais.Count > 1)
             {
@@ -54,35 +172,37 @@ namespace ComputerGraphic.Models
                 int totalVertice = ListaFaces[0].Count - 1;
                 for (int i = 0; i < totalFace; i++)
                 {
-                    //for (int j = 0; j < totalVertice; j++)
-                    //{
-                    //    Vertice.PontoMedio(ListaVerticesAtuais[ListaFaces[i][j]].X, ListaVerticesAtuais[ListaFaces[i][j]].Y,
-                    //        ListaVerticesAtuais[ListaFaces[i][j + 1]].X, ListaVerticesAtuais[ListaFaces[i][j + 1]].Y, imagem);
-                    //}
-                    //Vertice.PontoMedio(ListaVerticesAtuais[ListaFaces[i][totalVertice]].X, ListaVerticesAtuais[ListaFaces[i][totalVertice]].Y,
-                    //   ListaVerticesAtuais[ListaFaces[i][0]].X, ListaVerticesAtuais[ListaFaces[i][0]].Y, imagem);
-
-                    // ########################################################################
-                    // PERGUNTAR ----> DEIXA FIXO ??????, sempre via ter só 3 faces ????
+                    
                     Vertice.PontoMedio(ListaVerticesAtuais[ListaFaces[i][0]].X, ListaVerticesAtuais[ListaFaces[i][0]].Y,
-                        ListaVerticesAtuais[ListaFaces[i][1]].X, ListaVerticesAtuais[ListaFaces[i][1]].Y, imagem, 255);
+                        ListaVerticesAtuais[ListaFaces[i][1]].X, ListaVerticesAtuais[ListaFaces[i][1]].Y, imagem, corPincel);
 
                     Vertice.PontoMedio(ListaVerticesAtuais[ListaFaces[i][1]].X, ListaVerticesAtuais[ListaFaces[i][1]].Y,
-                        ListaVerticesAtuais[ListaFaces[i][2]].X, ListaVerticesAtuais[ListaFaces[i][2]].Y, imagem, 255);
+                        ListaVerticesAtuais[ListaFaces[i][2]].X, ListaVerticesAtuais[ListaFaces[i][2]].Y, imagem, corPincel);
 
                     Vertice.PontoMedio(ListaVerticesAtuais[ListaFaces[i][2]].X, ListaVerticesAtuais[ListaFaces[i][2]].Y,
-                        ListaVerticesAtuais[ListaFaces[i][0]].X, ListaVerticesAtuais[ListaFaces[i][0]].Y, imagem, 255);
+                        ListaVerticesAtuais[ListaFaces[i][0]].X, ListaVerticesAtuais[ListaFaces[i][0]].Y, imagem, corPincel);
+
+                    // Preenchimento
+                    //EdgeTable lista = new EdgeTable(pictureBox.Height);
+                    //lista.Inicializar(new List<Vertice>() { 
+                    //    ListaVerticesAtuais[ListaFaces[i][0]], 
+                    //    ListaVerticesAtuais[ListaFaces[i][1]],
+                    //    ListaVerticesAtuais[ListaFaces[i][2]]
+                    //});
+
+                    //lista.Preencher(imagem, Color.Yellow, pictureBox);
+
                 }
 
                 // Aqui arrumar para pintar, pois, tem que passar tambem a lista de faces
-                //EdgeTable lista = new EdgeTable(pictureBox.Height);
+                //
                 //lista.Inicializar(ListaVerticesAtuais);
 
                 pictureBox.Image = imagem;
             }
         }
 
-        public void LimpaTela(Bitmap imagem, PictureBox pictureBox)
+        public void LimpaTela(Bitmap imagem, PictureBox pictureBox, int corBoracha)
         {
             if (ListaVerticesAtuais.Count > 1)
             {
@@ -91,13 +211,13 @@ namespace ComputerGraphic.Models
                 for (int i = 0; i < totalFace; i++)
                 {
                     Vertice.PontoMedio(ListaVerticesAtuais[ListaFaces[i][0]].X, ListaVerticesAtuais[ListaFaces[i][0]].Y,
-                        ListaVerticesAtuais[ListaFaces[i][1]].X, ListaVerticesAtuais[ListaFaces[i][1]].Y, imagem, 0);
+                        ListaVerticesAtuais[ListaFaces[i][1]].X, ListaVerticesAtuais[ListaFaces[i][1]].Y, imagem, corBoracha);
 
                     Vertice.PontoMedio(ListaVerticesAtuais[ListaFaces[i][1]].X, ListaVerticesAtuais[ListaFaces[i][1]].Y,
-                        ListaVerticesAtuais[ListaFaces[i][2]].X, ListaVerticesAtuais[ListaFaces[i][2]].Y, imagem, 0);
+                        ListaVerticesAtuais[ListaFaces[i][2]].X, ListaVerticesAtuais[ListaFaces[i][2]].Y, imagem, corBoracha);
 
                     Vertice.PontoMedio(ListaVerticesAtuais[ListaFaces[i][2]].X, ListaVerticesAtuais[ListaFaces[i][2]].Y,
-                        ListaVerticesAtuais[ListaFaces[i][0]].X, ListaVerticesAtuais[ListaFaces[i][0]].Y, imagem, 0);
+                        ListaVerticesAtuais[ListaFaces[i][0]].X, ListaVerticesAtuais[ListaFaces[i][0]].Y, imagem, corBoracha);
                 }
 
                 pictureBox.Image = imagem;

@@ -45,9 +45,9 @@ namespace ComputerGraphic.Models
         public static unsafe void DesenhaPontoMedio(double x1, double y1, double x2, double y2, byte* ptr, Bitmap imagem, int padding, int cor)
         {   
             int declive;
-            double deltaX, deltaY, incE, incNE, d, x, y;
-            deltaX = x2 - x1;
-            deltaY = y2 - y1;
+            int deltaX, deltaY, incE, incNE, d, x, y;
+            deltaX = Convert.ToInt32(x2 - x1);
+            deltaY = Convert.ToInt32(y2 - y1);
 
 
             if (Math.Abs(deltaX) > Math.Abs(deltaY)) // 10 -- 5
@@ -67,11 +67,11 @@ namespace ComputerGraphic.Models
                 incE = 2 * deltaY;
                 incNE = 2 * (deltaY - deltaX);
                 d = 2 * deltaY - deltaX;
-                y = y1;
+                y = Convert.ToInt32(y1);
                 // posiciona no Y de início
                 ptr += (int)y * (imagem.Width * 3 + padding);
                 // ---------------
-                for (x = x1; x <= x2; x++)
+                for (x = Convert.ToInt32(x1); x <= x2; x++)
                 {
                     PosicionaX(ptr, imagem.Width, imagem.Height, padding, (int)x, (int)y, cor);
                     if (d <= 0)
@@ -108,11 +108,11 @@ namespace ComputerGraphic.Models
                 incE = 2 * deltaX;
                 incNE = 2 * (deltaX - deltaY);
                 d = 2 * deltaX - deltaY;
-                x = x1;
+                x = Convert.ToInt32(x1);
                 // posiciona no Y de início
                 ptr += (int)y1 * (imagem.Width * 3 + padding);
                 // ---------------
-                for (y = y1; y <= y2; y++)
+                for (y = Convert.ToInt32(y1); y <= y2; y++)
                 {
                     PosicionaX(ptr, imagem.Width, imagem.Height, padding, (int)x, (int)y, cor);
                     if (d <= 0)
@@ -153,96 +153,6 @@ namespace ComputerGraphic.Models
             imagem.UnlockBits(bitmapDataSrc);
         }
 
-
-        //public static void PontoMedio(double x1, double y1, double x2, double y2, Bitmap imagem, int cor)
-        //{
-        //    int declive;
-        //    double deltaX, deltaY, incE, incNE, d, x, y;
-        //    deltaX = x2 - x1; 
-        //    deltaY = y2 - y1;
-
-        //    int w = imagem.Width;
-        //    int h = imagem.Height;
-
-        //    if (Math.Abs(deltaX) > Math.Abs(deltaY))
-        //    {
-        //        if (x1 > x2)
-        //        {
-        //            PontoMedio(x2, y2, x1, y1, imagem, cor);
-        //            return;
-        //        }
-
-        //        declive = Math.Sign(deltaY);
-        //        if (y1 > y2)
-        //        {
-        //            deltaY = -deltaY;
-        //        }
-
-
-        //        incE = 2 * deltaY;
-        //        incNE = 2 * (deltaY - deltaX);
-        //        d = 2 * deltaY - deltaX;
-        //        y = y1;
-        //        for (x = x1; x <= x2; x++)
-        //        {
-        //            if ((int)x > 0 && (int)x < w && (int)y > 0 && (int)y < h)
-        //            {
-        //                if (cor == 0)
-        //                    imagem.SetPixel((int)x, (int)y, Color.Black);
-        //                else
-        //                    imagem.SetPixel((int)x, (int)y, Color.Blue);
-        //            }
-        //            if (d <= 0)
-        //            {
-        //                d += incE;
-        //            }
-        //            else
-        //            {
-        //                d += incNE;
-        //                y += declive;
-        //            }
-        //        }
-        //    }
-        //    else
-        //    {
-        //        if (y1 > y2)
-        //        {
-        //            PontoMedio(x2, y2, x1, y1, imagem, cor);
-        //            return;
-        //        }
-
-        //        declive = Math.Sign(deltaX);
-        //        if (x1 > x2)
-        //        {
-        //            deltaX = -deltaX;
-        //        }
-
-
-        //        incE = 2 * deltaX;
-        //        incNE = 2 * (deltaX - deltaY);
-        //        d = 2 * deltaX - deltaY;
-        //        x = x1;
-        //        for (y = y1; y <= y2; y++)
-        //        {
-        //            if ((int)x > 0 && (int)x < w && (int)y > 0 && (int)y < h)
-        //            {
-        //                if (cor == 0)
-        //                    imagem.SetPixel((int)x, (int)y, Color.Black);
-        //                else
-        //                    imagem.SetPixel((int)x, (int)y, Color.Blue);
-        //            }
-        //            if (d <= 0)
-        //            {
-        //                d += incE;
-        //            }
-        //            else
-        //            {
-        //                d += incNE;
-        //                x += declive;
-        //            }
-        //        }
-        //    }
-        //}
     }
 
 
