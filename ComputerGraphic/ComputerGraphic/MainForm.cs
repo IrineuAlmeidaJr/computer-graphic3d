@@ -118,8 +118,6 @@ namespace ComputerGraphic
                                             break;
                                     }
                                 }
-                                // Translada para o Centro da Tela
-                                _objeto3D.Translacao(_width / 2, _height / 8, 0);
                             }
                             else
                             {
@@ -140,6 +138,9 @@ namespace ComputerGraphic
                                                 .Add(new Vertice(x, y, z));
                                             _objeto3D.ListaVerticesAtuais
                                                 .Add(new Vertice(x, y, z));
+                                            
+                                            _objeto3D.ListaNormaisVerticesOriginais.Add(new Vertice(0, 0, 0));
+                                            _objeto3D.ListaNormaisVerticesAtuais.Add(new Vertice(0, 0, 0));
                                             break;
 
                                         case "f":
@@ -159,9 +160,8 @@ namespace ComputerGraphic
                                             break;
                                     }
                                 }
-                                // Translada para o Centro da Tela
-                                _objeto3D.Translacao(_width / 2, _height / 2, 0);
                             }
+                            _objeto3D.inicializaNormais();
                             // Desenha Objeto3D                                
                             _objeto3D.Desenhar(_imagem, pictureBox, _corBordaPincel);
 
@@ -184,158 +184,158 @@ namespace ComputerGraphic
 
         private void checkListIsonometrica_SelectedIndexChanged(object sender, EventArgs e)
         {
-            int antes = 0;
-            int atual = checkListIsonometrica.SelectedIndex;
-            int count = checkListIsonometrica.Items.Count;
-            for (int i=0; i < count; i++)
-            {
-                if (atual != i)
-                {
-                    if (checkListIsonometrica.GetItemChecked(i))
-                    {
-                        antes = i;
-                    }
-                    checkListIsonometrica.SetItemChecked(i, false);
-                }
-            }
-            checkListIsonometrica.SetItemChecked(atual, true);
+            ////int antes = 0;
+            ////int atual = checkListIsonometrica.SelectedIndex;
+            ////int count = checkListIsonometrica.Items.Count;
+            ////for (int i=0; i < count; i++)
+            ////{
+            ////    if (atual != i)
+            ////    {
+            ////        if (checkListIsonometrica.GetItemChecked(i))
+            ////        {
+            ////            antes = i;
+            ////        }
+            ////        checkListIsonometrica.SetItemChecked(i, false);
+            ////    }
+            ////}
+            ////checkListIsonometrica.SetItemChecked(atual, true);
 
 
 
-            //MessageBox.Show($"Antes - {antes} | Atual - {atual}");
+            ////MessageBox.Show($"Antes - {antes} | Atual - {atual}");
 
-            if (checkBoxIsometrica.Checked)
-            {
-                int tX, tY;
-                switch (antes)
-                {
-                    // X, Y, Z
-                    case 0:
-                        _objeto3D.LimpaTela(_imagem, pictureBox, _corBordaBorracha);
-                        // X, Z, Y -> Superior
-                        if (atual == 1)
-                        {
-                            _objeto3D.MudarVista('X', 'Y', 'X', 'Z');
-
-
-                            // Translada para o Centro da Tela
-                            tX = 0 - (int)(_objeto3D.ListaVerticesAtuais[0].X);
-                            tY = 0 - (int)(_objeto3D.ListaVerticesAtuais[0].Y);
-                            _objeto3D.Translacao(tX, tY, 0);
-                            _objeto3D.Translacao(_width / 2, _height / 2, 0);
-                            // Desenha
-                            _objeto3D.Desenhar(_imagem, pictureBox, _corBordaPincel);
-                        }
-                        else // Y, Z, X -> Lateral
-                        {
-                            if (atual == 2)
-                            {
-                                _objeto3D.MudarVista('X', 'Y', 'Y', 'Z');
+            //if (checkBoxIsometrica.Checked)
+            //{
+            //    int tX, tY;
+            //    switch (antes)
+            //    {
+            //        // X, Y, Z
+            //        case 0:
+            //            _objeto3D.LimpaTela(_imagem, pictureBox, _corBordaBorracha);
+            //            // X, Z, Y -> Superior
+            //            if (atual == 1)
+            //            {
+            //                _objeto3D.MudarVista('X', 'Y', 'X', 'Z');
 
 
-                                // Translada para o Centro da Tela
-                                tX = 0 - (int)(_objeto3D.ListaVerticesAtuais[0].X);
-                                tY = 0 - (int)(_objeto3D.ListaVerticesAtuais[0].Y);
-                                _objeto3D.Translacao(tX, tY, 0);
-                                _objeto3D.Translacao(_width / 2, _height / 2, 0);
-                                // Desenha
-                                _objeto3D.Desenhar(_imagem, pictureBox, _corBordaPincel);
-                            }
-                            else
-                            {
-                                // Manteve no X, Y, Z
-                            }
+            //                // Translada para o Centro da Tela
+            //                tX = 0 - (int)(_objeto3D.ListaVerticesAtuais[0].X);
+            //                tY = 0 - (int)(_objeto3D.ListaVerticesAtuais[0].Y);
+            //                _objeto3D.Translacao(tX, tY, 0);
+            //                _objeto3D.Translacao(_width / 2, _height / 2, 0);
+            //                // Desenha
+            //                _objeto3D.Desenhar(_imagem, pictureBox, _corBordaPincel);
+            //            }
+            //            else // Y, Z, X -> Lateral
+            //            {
+            //                if (atual == 2)
+            //                {
+            //                    _objeto3D.MudarVista('X', 'Y', 'Y', 'Z');
+
+
+            //                    // Translada para o Centro da Tela
+            //                    tX = 0 - (int)(_objeto3D.ListaVerticesAtuais[0].X);
+            //                    tY = 0 - (int)(_objeto3D.ListaVerticesAtuais[0].Y);
+            //                    _objeto3D.Translacao(tX, tY, 0);
+            //                    _objeto3D.Translacao(_width / 2, _height / 2, 0);
+            //                    // Desenha
+            //                    _objeto3D.Desenhar(_imagem, pictureBox, _corBordaPincel);
+            //                }
+            //                else
+            //                {
+            //                    // Manteve no X, Y, Z
+            //                }
                             
-                        }
+            //            }
 
-                        // Translada para o Centro da Tela
-                        tX = 0 - (int)(_objeto3D.ListaVerticesAtuais[0].X);
-                        tY = 0 - (int)(_objeto3D.ListaVerticesAtuais[0].Y);
-                        _objeto3D.Translacao(tX, tY, 0);
-                        _objeto3D.Translacao(_width / 2, _height / 2, 0);
-                        // Desenha
-                        _objeto3D.Desenhar(_imagem, pictureBox, _corBordaPincel);
-                        break;
-                    // X, Z, Y
-                    case 1:
-                        _objeto3D.LimpaTela(_imagem, pictureBox, _corBordaBorracha);
-                        // X, Y, Z -> Frontal
-                        if (atual == 0)
-                        {
-                            _objeto3D.MudarVista('X', 'Z', 'X', 'Y');
-
-
-                            // Translada para o Centro da Tela
-                            tX = 0 - (int)(_objeto3D.ListaVerticesAtuais[0].X);
-                            tY = 0 - (int)(_objeto3D.ListaVerticesAtuais[0].Y);
-                            _objeto3D.Translacao(tX, tY, 0);
-                            _objeto3D.Translacao(_width / 2, _height / 2, 0);
-                            // Desenha
-                            _objeto3D.Desenhar(_imagem, pictureBox, _corBordaPincel);
-                        }
-                        else
-                        {
-                            // Y, Z, X->Lateral
-                            if (atual == 2)
-                            {
-                                _objeto3D.MudarVista('X', 'Z', 'Y', 'Z');
+            //            // Translada para o Centro da Tela
+            //            tX = 0 - (int)(_objeto3D.ListaVerticesAtuais[0].X);
+            //            tY = 0 - (int)(_objeto3D.ListaVerticesAtuais[0].Y);
+            //            _objeto3D.Translacao(tX, tY, 0);
+            //            _objeto3D.Translacao(_width / 2, _height / 2, 0);
+            //            // Desenha
+            //            _objeto3D.Desenhar(_imagem, pictureBox, _corBordaPincel);
+            //            break;
+            //        // X, Z, Y
+            //        case 1:
+            //            _objeto3D.LimpaTela(_imagem, pictureBox, _corBordaBorracha);
+            //            // X, Y, Z -> Frontal
+            //            if (atual == 0)
+            //            {
+            //                _objeto3D.MudarVista('X', 'Z', 'X', 'Y');
 
 
-                                // Translada para o Centro da Tela
-                                tX = 0 - (int)(_objeto3D.ListaVerticesAtuais[0].X);
-                                tY = 0 - (int)(_objeto3D.ListaVerticesAtuais[0].Y);
-                                _objeto3D.Translacao(tX, tY, 0);
-                                _objeto3D.Translacao(_width / 2, _height / 2, 0);
-                                // Desenha
-                                _objeto3D.Desenhar(_imagem, pictureBox, _corBordaPincel);
-                            }
-                            else
-                            {
-                                // Manteve no X, Z, Y
-                            }
-                        }
-                        break;
-                    // Y, Z, X
-                    case 2:
-                        _objeto3D.LimpaTela(_imagem, pictureBox, _corBordaBorracha);
-                        // X, Y, Z -> Frontal
-                        if (atual == 0)
-                        {
-                            _objeto3D.MudarVista('Y', 'Z', 'X', 'Y');
-
-                            // Translada para o Centro da Tela
-                            tX = 0 - (int)(_objeto3D.ListaVerticesAtuais[0].X);
-                            tY = 0 - (int)(_objeto3D.ListaVerticesAtuais[0].Y);
-                            _objeto3D.Translacao(tX, tY, 0);
-                            _objeto3D.Translacao(_width / 2, _height / 2, 0);
-                            // Desenha
-                            _objeto3D.Desenhar(_imagem, pictureBox, _corBordaPincel);
-                        }
-                        else
-                        {
-                            // X, Z, Y -> Superior
-                            if (atual == 1)
-                            {
-                                _objeto3D.MudarVista('Y', 'Z', 'X', 'Z');
-
-                                // Translada para o Centro da Tela
-                                tX = 0 - (int)(_objeto3D.ListaVerticesAtuais[0].X);
-                                tY = 0 - (int)(_objeto3D.ListaVerticesAtuais[0].Y);
-                                _objeto3D.Translacao(tX, tY, 0);
-                                _objeto3D.Translacao(_width / 2, _height / 2, 0);
-                                // Desenha
-                                _objeto3D.Desenhar(_imagem, pictureBox, _corBordaPincel);
-                            }
-                            else
-                            {
-                                // Manteve no Y, Z, X
-                            }
-                        }
+            //                // Translada para o Centro da Tela
+            //                tX = 0 - (int)(_objeto3D.ListaVerticesAtuais[0].X);
+            //                tY = 0 - (int)(_objeto3D.ListaVerticesAtuais[0].Y);
+            //                _objeto3D.Translacao(tX, tY, 0);
+            //                _objeto3D.Translacao(_width / 2, _height / 2, 0);
+            //                // Desenha
+            //                _objeto3D.Desenhar(_imagem, pictureBox, _corBordaPincel);
+            //            }
+            //            else
+            //            {
+            //                // Y, Z, X->Lateral
+            //                if (atual == 2)
+            //                {
+            //                    _objeto3D.MudarVista('X', 'Z', 'Y', 'Z');
 
 
-                        break;
-                }
-            }
+            //                    // Translada para o Centro da Tela
+            //                    tX = 0 - (int)(_objeto3D.ListaVerticesAtuais[0].X);
+            //                    tY = 0 - (int)(_objeto3D.ListaVerticesAtuais[0].Y);
+            //                    _objeto3D.Translacao(tX, tY, 0);
+            //                    _objeto3D.Translacao(_width / 2, _height / 2, 0);
+            //                    // Desenha
+            //                    _objeto3D.Desenhar(_imagem, pictureBox, _corBordaPincel);
+            //                }
+            //                else
+            //                {
+            //                    // Manteve no X, Z, Y
+            //                }
+            //            }
+            //            break;
+            //        // Y, Z, X
+            //        case 2:
+            //            _objeto3D.LimpaTela(_imagem, pictureBox, _corBordaBorracha);
+            //            // X, Y, Z -> Frontal
+            //            if (atual == 0)
+            //            {
+            //                _objeto3D.MudarVista('Y', 'Z', 'X', 'Y');
+
+            //                // Translada para o Centro da Tela
+            //                tX = 0 - (int)(_objeto3D.ListaVerticesAtuais[0].X);
+            //                tY = 0 - (int)(_objeto3D.ListaVerticesAtuais[0].Y);
+            //                _objeto3D.Translacao(tX, tY, 0);
+            //                _objeto3D.Translacao(_width / 2, _height / 2, 0);
+            //                // Desenha
+            //                _objeto3D.Desenhar(_imagem, pictureBox, _corBordaPincel);
+            //            }
+            //            else
+            //            {
+            //                // X, Z, Y -> Superior
+            //                if (atual == 1)
+            //                {
+            //                    _objeto3D.MudarVista('Y', 'Z', 'X', 'Z');
+
+            //                    // Translada para o Centro da Tela
+            //                    tX = 0 - (int)(_objeto3D.ListaVerticesAtuais[0].X);
+            //                    tY = 0 - (int)(_objeto3D.ListaVerticesAtuais[0].Y);
+            //                    _objeto3D.Translacao(tX, tY, 0);
+            //                    _objeto3D.Translacao(_width / 2, _height / 2, 0);
+            //                    // Desenha
+            //                    _objeto3D.Desenhar(_imagem, pictureBox, _corBordaPincel);
+            //                }
+            //                else
+            //                {
+            //                    // Manteve no Y, Z, X
+            //                }
+            //            }
+
+
+            //            break;
+            //    }
+            //}
         }
 
         private void PictureBoxMouseWheel(object sender, MouseEventArgs e)
@@ -451,8 +451,8 @@ namespace ComputerGraphic
                     if (e.Button == MouseButtons.Left)
                     {
                         _objeto3D.LimpaTela(_imagem, pictureBox, _corBordaBorracha);
-                        int tX = e.X - (int)(_objeto3D.ListaVerticesAtuais[0].X);
-                        int tY = e.Y - (int)(_objeto3D.ListaVerticesAtuais[0].Y);
+                        int tX = (e.X - _width/2 ) - (int)(_objeto3D.ListaVerticesAtuais[0].X);
+                        int tY = (e.Y - _height/2) - (int)(_objeto3D.ListaVerticesAtuais[0].Y);
                         _objeto3D.Translacao(tX, tY, 0);
                         // Desenha Objeto3D
 
@@ -461,7 +461,7 @@ namespace ComputerGraphic
 
                     if (e.Button == MouseButtons.Right)
                     {
-                        int grau = e.Delta > 0 ? 5 : -5;
+                        int grau = e.Delta > 10 ? 5 : -5;
                         if (pX)
                         {
                             _objeto3D.LimpaTela(_imagem, pictureBox, _corBordaBorracha);
