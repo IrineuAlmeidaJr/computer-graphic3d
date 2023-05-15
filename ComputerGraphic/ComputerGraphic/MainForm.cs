@@ -28,6 +28,8 @@ namespace ComputerGraphic
 
         private bool pX, pY, pZ;
 
+        private int _posicaoAnteriorMouseX;
+
         public ComputerGraphic()
         {
             InitializeComponent();
@@ -35,12 +37,14 @@ namespace ComputerGraphic
             _width = pictureBox.Width;
             _height = pictureBox.Height;
             
-            _desenha = true;
+            _desenha = false;
 
             _corBordaPincel = 150;
             _corBordaBorracha = 0;
 
             pX = pY = pZ = false;
+
+            _posicaoAnteriorMouseX = 0;
 
             pictureBox.MouseWheel += PictureBoxMouseWheel;
 
@@ -446,6 +450,13 @@ namespace ComputerGraphic
         {
             if (_objeto3D != null)
             {
+                int num = 0;
+                string testeNormalZ= $"ANTES -> {_posicaoAnteriorMouseX}\nATUAL -> {e.X}\n\n";
+                foreach(var t in _objeto3D.ListaNormaisVerticesAtuais)
+                {
+                    testeNormalZ += $"Z[{num++}]: {t.Z}\n";
+                }
+                testZ.Text = $"{testeNormalZ}";
                 if (_desenha)
                 {
                     if (e.Button == MouseButtons.Left)
@@ -453,7 +464,7 @@ namespace ComputerGraphic
                         _objeto3D.LimpaTela(_imagem, pictureBox, _corBordaBorracha);
                         int tX = (e.X - _width/2 ) - (int)(_objeto3D.ListaVerticesAtuais[0].X);
                         int tY = (e.Y - _height/2) - (int)(_objeto3D.ListaVerticesAtuais[0].Y);
-                        _objeto3D.Translacao(tX, tY, 0);
+                        _objeto3D.Translacao(tX, tY, (int)(_objeto3D.ListaVerticesAtuais[0].Z));
                         // Desenha Objeto3D
 
                         _objeto3D.Desenhar(_imagem, pictureBox, _corBordaPincel);
@@ -461,7 +472,21 @@ namespace ComputerGraphic
 
                     if (e.Button == MouseButtons.Right)
                     {
-                        int grau = e.Delta > 10 ? 5 : -5;
+                        int posicaoAtualMouseX = e.X;
+                        int subtraPontoX = posicaoAtualMouseX - _posicaoAnteriorMouseX;
+                        int grau = 0;
+                        if (subtraPontoX > 0)
+                        {
+                            grau = 5;
+                        }
+                        else
+                        {
+                            if (subtraPontoX < 0)
+                            {
+                                grau = -5;
+                            }
+                        }
+                       
                         if (pX)
                         {
                             _objeto3D.LimpaTela(_imagem, pictureBox, _corBordaBorracha);
@@ -487,6 +512,10 @@ namespace ComputerGraphic
                             }
                         }
                     }
+                }
+                else
+                {
+                    _posicaoAnteriorMouseX = e.X;
                 }
                 _desenha = !_desenha;
             }
