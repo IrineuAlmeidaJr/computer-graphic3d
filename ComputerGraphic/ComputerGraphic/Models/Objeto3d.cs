@@ -82,9 +82,13 @@ namespace ComputerGraphic.Models
 
                 N = Math.Sqrt(i * i + j * j + k * k);
 
-                nI = i / N;
-                nJ = j / N;
-                nK = k / N;
+                //nI = i / N;
+                //nJ = j / N;
+                //nK = k / N;
+
+                nI = i ;
+                nJ = j ;
+                nK = k ;
 
                 ListaNormaisFacesOriginais.Add(new Vertice(nI, nJ, nK));
                 ListaNormaisFacesAtuais.Add(new Vertice(nI, nJ, nK));
@@ -102,7 +106,7 @@ namespace ComputerGraphic.Models
                     ListaNormaisVerticesAtuais[posVertice].X += ListaNormaisFacesAtuais[pos].X;
                     ListaNormaisVerticesAtuais[posVertice].Y += ListaNormaisFacesAtuais[pos].Y;
                     ListaNormaisVerticesAtuais[posVertice].Z += ListaNormaisFacesAtuais[pos].Z;
-                    ListaNormaisVerticesOriginais[posVertice].NumFaceCompartilhadas++;
+                    ListaNormaisVerticesAtuais[posVertice].NumFaceCompartilhadas++;
                 }
             }
 
@@ -111,6 +115,10 @@ namespace ComputerGraphic.Models
                 ListaNormaisVerticesOriginais[pos].X /= ListaNormaisVerticesOriginais[pos].NumFaceCompartilhadas;
                 ListaNormaisVerticesOriginais[pos].Y /= ListaNormaisVerticesOriginais[pos].NumFaceCompartilhadas;
                 ListaNormaisVerticesOriginais[pos].Z /= ListaNormaisVerticesOriginais[pos].NumFaceCompartilhadas;
+
+                ListaNormaisVerticesAtuais[pos].X /= ListaNormaisVerticesAtuais[pos].NumFaceCompartilhadas;
+                ListaNormaisVerticesAtuais[pos].Y /= ListaNormaisVerticesAtuais[pos].NumFaceCompartilhadas;
+                ListaNormaisVerticesAtuais[pos].Z /= ListaNormaisVerticesAtuais[pos].NumFaceCompartilhadas;
             }
         }
 
@@ -231,7 +239,7 @@ namespace ComputerGraphic.Models
             ListaVerticesOriginais = new List<Vertice>(ListaVerticesAtuais);
         }
 
-        public void Desenhar(Bitmap imagem, PictureBox pictureBox, int corPincel)
+        public void Desenhar(Bitmap imagem, PictureBox pictureBox, int corPincel, bool faceOculta)
         {
             if (ListaVerticesAtuais.Count > 1)
             {
@@ -239,11 +247,41 @@ namespace ComputerGraphic.Models
                 int height = pictureBox.Height/2;
 
                 int totalFace = ListaFaces.Count ;
-                int totalVertice = ListaFaces[0].Count - 1;
-                for (int i = 0; i < totalFace; i++)
+                int totalVertice;
+                if (faceOculta)
                 {
-                    if (ListaNormaisFacesAtuais[i].Z > 0)
+                    for (int i = 0; i < totalFace; i++)
                     {
+
+                        if (ListaNormaisFacesAtuais[i].Z >= 0) frt
+                        {
+                            totalVertice = ListaFaces[i].Count - 1;
+                            for (int j = 0; j < totalVertice; j++)
+                            {
+                                Vertice.PontoMedio(ListaVerticesAtuais[ListaFaces[i][j]].X + width, ListaVerticesAtuais[ListaFaces[i][j]].Y + height,
+                                    ListaVerticesAtuais[ListaFaces[i][j + 1]].X + width, ListaVerticesAtuais[ListaFaces[i][j + 1]].Y + height, imagem, corPincel);
+                            }
+                            Vertice.PontoMedio(ListaVerticesAtuais[ListaFaces[i][totalVertice]].X + width, ListaVerticesAtuais[ListaFaces[i][totalVertice]].Y + +height,
+                                ListaVerticesAtuais[ListaFaces[i][0]].X + width, ListaVerticesAtuais[ListaFaces[i][0]].Y + height, imagem, corPincel);
+                        }
+
+                        // Preenchimento
+                        //EdgeTable lista = new EdgeTable(pictureBox.Height);
+                        //lista.Inicializar(new List<Vertice>() { 
+                        //    ListaVerticesAtuais[ListaFaces[i][0]], 
+                        //    ListaVerticesAtuais[ListaFaces[i][1]],
+                        //    ListaVerticesAtuais[ListaFaces[i][2]]
+                        //});
+
+                        //lista.Preencher(imagem, Color.Yellow, pictureBox);
+
+                    }
+                }
+                else
+                {
+                    for (int i = 0; i < totalFace; i++)
+                    {
+                        totalVertice = ListaFaces[i].Count - 1;
                         for (int j = 0; j < totalVertice; j++)
                         {
                             Vertice.PontoMedio(ListaVerticesAtuais[ListaFaces[i][j]].X + width, ListaVerticesAtuais[ListaFaces[i][j]].Y + height,
@@ -251,20 +289,23 @@ namespace ComputerGraphic.Models
                         }
                         Vertice.PontoMedio(ListaVerticesAtuais[ListaFaces[i][totalVertice]].X + width, ListaVerticesAtuais[ListaFaces[i][totalVertice]].Y + +height,
                             ListaVerticesAtuais[ListaFaces[i][0]].X + width, ListaVerticesAtuais[ListaFaces[i][0]].Y + height, imagem, corPincel);
+                        
+
+                        // Preenchimento
+                        //EdgeTable lista = new EdgeTable(pictureBox.Height);
+                        //lista.Inicializar(new List<Vertice>() { 
+                        //    ListaVerticesAtuais[ListaFaces[i][0]], 
+                        //    ListaVerticesAtuais[ListaFaces[i][1]],
+                        //    ListaVerticesAtuais[ListaFaces[i][2]]
+                        //});
+
+                        //lista.Preencher(imagem, Color.Yellow, pictureBox);
+
                     }
-
-
-                    // Preenchimento
-                    //EdgeTable lista = new EdgeTable(pictureBox.Height);
-                    //lista.Inicializar(new List<Vertice>() { 
-                    //    ListaVerticesAtuais[ListaFaces[i][0]], 
-                    //    ListaVerticesAtuais[ListaFaces[i][1]],
-                    //    ListaVerticesAtuais[ListaFaces[i][2]]
-                    //});
-
-                    //lista.Preencher(imagem, Color.Yellow, pictureBox);
-
                 }
+
+               
+
 
                 // Aqui arrumar para pintar, pois, tem que passar tambem a lista de faces
                 //
@@ -282,16 +323,18 @@ namespace ComputerGraphic.Models
                 int height = pictureBox.Height / 2;
 
                 int totalFace = ListaFaces.Count;
-                int totalVertice = ListaFaces[0].Count - 1;
+                int totalVertice;
                 for (int i = 0; i < totalFace; i++)
-                {                    
+                {
+                    totalVertice = ListaFaces[i].Count - 1;
                     for (int j = 0; j < totalVertice; j++)
                     {
                         Vertice.PontoMedio(ListaVerticesAtuais[ListaFaces[i][j]].X + width, ListaVerticesAtuais[ListaFaces[i][j]].Y + height,
                             ListaVerticesAtuais[ListaFaces[i][j + 1]].X + width, ListaVerticesAtuais[ListaFaces[i][j + 1]].Y + height, imagem, corBoracha);
                     }
                     Vertice.PontoMedio(ListaVerticesAtuais[ListaFaces[i][totalVertice]].X + width, ListaVerticesAtuais[ListaFaces[i][totalVertice]].Y + height,
-                        ListaVerticesAtuais[ListaFaces[i][0]].X + width, ListaVerticesAtuais[ListaFaces[i][0]].Y + height, imagem, corBoracha);                    
+                        ListaVerticesAtuais[ListaFaces[i][0]].X + width, ListaVerticesAtuais[ListaFaces[i][0]].Y + height, imagem, corBoracha);
+                    
                 }
 
                 pictureBox.Image = imagem;
@@ -301,7 +344,7 @@ namespace ComputerGraphic.Models
         public void PreencherComVertices(DataGridView dtGrid)
         {
             dtGrid.Rows.Clear();
-            foreach (var vertice in ListaVerticesAtuais)
+            foreach (var vertice in ListaNormaisFacesAtuais)
             {
                 dtGrid.Rows.Add(new object[]
                 {
@@ -357,7 +400,6 @@ namespace ComputerGraphic.Models
 
                 ListaNormaisVerticesAtuais.Add(new Vertice(normalX, normalY, normalZ));
             }
-            Console.WriteLine( "TESTE");
         }
 
         public void Translacao(int tX, int tY, int tZ)

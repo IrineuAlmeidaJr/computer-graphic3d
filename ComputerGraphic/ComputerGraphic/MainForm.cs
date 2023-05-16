@@ -167,7 +167,7 @@ namespace ComputerGraphic
                             }
                             _objeto3D.inicializaNormais();
                             // Desenha Objeto3D                                
-                            _objeto3D.Desenhar(_imagem, pictureBox, _corBordaPincel);
+                            _objeto3D.Desenhar(_imagem, pictureBox, _corBordaPincel, cbFaceOculta.Checked);
 
                             //_objeto3D.PreencherComVertices(dtGridVertices);
                         }
@@ -353,7 +353,7 @@ namespace ComputerGraphic
                     {
                         _objeto3D.LimpaTela(_imagem, pictureBox, _corBordaBorracha);
                         _objeto3D.Escala(escala, 1, 1);
-                        _objeto3D.Desenhar(_imagem, pictureBox, _corBordaPincel);
+                        _objeto3D.Desenhar(_imagem, pictureBox, _corBordaPincel, cbFaceOculta.Checked);
                     }
                     else
                     {
@@ -361,7 +361,7 @@ namespace ComputerGraphic
                         {
                             _objeto3D.LimpaTela(_imagem, pictureBox, _corBordaBorracha);
                             _objeto3D.Escala(1, escala, 1);
-                            _objeto3D.Desenhar(_imagem, pictureBox, _corBordaPincel);
+                            _objeto3D.Desenhar(_imagem, pictureBox, _corBordaPincel, cbFaceOculta.Checked);
                         }
                         else
                         {
@@ -369,13 +369,13 @@ namespace ComputerGraphic
                             {
                                 _objeto3D.LimpaTela(_imagem, pictureBox, _corBordaBorracha);
                                 _objeto3D.Escala(1, 1, escala);
-                                _objeto3D.Desenhar(_imagem, pictureBox, _corBordaPincel);
+                                _objeto3D.Desenhar(_imagem, pictureBox, _corBordaPincel, cbFaceOculta.Checked);
                             }
                             else
                             {
                                 _objeto3D.LimpaTela(_imagem, pictureBox, _corBordaBorracha);
                                 _objeto3D.Escala(escala, escala, escala);
-                                _objeto3D.Desenhar(_imagem, pictureBox, _corBordaPincel);
+                                _objeto3D.Desenhar(_imagem, pictureBox, _corBordaPincel, cbFaceOculta.Checked);
                             }
                         }
                     }
@@ -450,24 +450,18 @@ namespace ComputerGraphic
         {
             if (_objeto3D != null)
             {
-                int num = 0;
-                string testeNormalZ= $"ANTES -> {_posicaoAnteriorMouseX}\nATUAL -> {e.X}\n\n";
-                foreach(var t in _objeto3D.ListaNormaisVerticesAtuais)
-                {
-                    testeNormalZ += $"Z[{num++}]: {t.Z}\n";
-                }
-                testZ.Text = $"{testeNormalZ}";
+                //_objeto3D.PreencherComVertices(dtGridVertices);
                 if (_desenha)
                 {
                     if (e.Button == MouseButtons.Left)
-                    {
+                    {   
                         _objeto3D.LimpaTela(_imagem, pictureBox, _corBordaBorracha);
                         int tX = (e.X - _width/2 ) - (int)(_objeto3D.ListaVerticesAtuais[0].X);
                         int tY = (e.Y - _height/2) - (int)(_objeto3D.ListaVerticesAtuais[0].Y);
-                        _objeto3D.Translacao(tX, tY, (int)(_objeto3D.ListaVerticesAtuais[0].Z));
+                        _objeto3D.Translacao(tX, tY, 0);
                         // Desenha Objeto3D
 
-                        _objeto3D.Desenhar(_imagem, pictureBox, _corBordaPincel);
+                        _objeto3D.Desenhar(_imagem, pictureBox, _corBordaPincel, cbFaceOculta.Checked);
                     }
 
                     if (e.Button == MouseButtons.Right)
@@ -477,13 +471,13 @@ namespace ComputerGraphic
                         int grau = 0;
                         if (subtraPontoX > 0)
                         {
-                            grau = 5;
+                            grau = 10;
                         }
                         else
                         {
                             if (subtraPontoX < 0)
                             {
-                                grau = -5;
+                                grau = -10;
                             }
                         }
                        
@@ -491,7 +485,7 @@ namespace ComputerGraphic
                         {
                             _objeto3D.LimpaTela(_imagem, pictureBox, _corBordaBorracha);
                             _objeto3D.RotacaoX(grau);
-                            _objeto3D.Desenhar(_imagem, pictureBox, _corBordaPincel);
+                            _objeto3D.Desenhar(_imagem, pictureBox, _corBordaPincel, cbFaceOculta.Checked);
                         }
                         else
                         {
@@ -499,7 +493,7 @@ namespace ComputerGraphic
                             {
                                 _objeto3D.LimpaTela(_imagem, pictureBox, _corBordaBorracha);
                                 _objeto3D.RotacaoY(grau);
-                                _objeto3D.Desenhar(_imagem, pictureBox, _corBordaPincel);
+                                _objeto3D.Desenhar(_imagem, pictureBox, _corBordaPincel, cbFaceOculta.Checked);
                             }
                             else
                             {
@@ -507,7 +501,7 @@ namespace ComputerGraphic
                                 {
                                     _objeto3D.LimpaTela(_imagem, pictureBox, _corBordaBorracha);
                                     _objeto3D.RotacaoZ(grau);
-                                    _objeto3D.Desenhar(_imagem, pictureBox, _corBordaPincel);
+                                    _objeto3D.Desenhar(_imagem, pictureBox, _corBordaPincel, cbFaceOculta.Checked);
                                 }
                             }
                         }

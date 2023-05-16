@@ -57,8 +57,11 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.checkListIsonometrica = new System.Windows.Forms.CheckedListBox();
             this.tabPage3 = new System.Windows.Forms.TabPage();
-            this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.testZ = new System.Windows.Forms.Label();
+            this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.tableLayoutPanel7 = new System.Windows.Forms.TableLayoutPanel();
+            this.cbAramado = new System.Windows.Forms.CheckBox();
+            this.cbFaceOculta = new System.Windows.Forms.CheckBox();
             this.tableLayoutPanel1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
@@ -73,6 +76,8 @@
             this.tableLayoutPanel6.SuspendLayout();
             this.tlPaneIsonometrica.SuspendLayout();
             this.panel1.SuspendLayout();
+            this.tabPage3.SuspendLayout();
+            this.tableLayoutPanel7.SuspendLayout();
             this.SuspendLayout();
             // 
             // tableLayoutPanel1
@@ -165,13 +170,13 @@
             this.tableLayoutPanel3.ColumnCount = 1;
             this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 89.54424F));
             this.tableLayoutPanel3.Controls.Add(this.tabControl1, 0, 1);
-            this.tableLayoutPanel3.Controls.Add(this.testZ, 0, 0);
+            this.tableLayoutPanel3.Controls.Add(this.tableLayoutPanel7, 0, 0);
             this.tableLayoutPanel3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel3.Location = new System.Drawing.Point(829, 3);
             this.tableLayoutPanel3.Name = "tableLayoutPanel3";
             this.tableLayoutPanel3.RowCount = 2;
-            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 30.8642F));
-            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 69.1358F));
+            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 38.73457F));
+            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 61.26543F));
             this.tableLayoutPanel3.Size = new System.Drawing.Size(373, 650);
             this.tableLayoutPanel3.TabIndex = 1;
             // 
@@ -182,10 +187,10 @@
             this.tabControl1.Controls.Add(this.tabPage3);
             this.tabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tabControl1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tabControl1.Location = new System.Drawing.Point(5, 205);
+            this.tabControl1.Location = new System.Drawing.Point(5, 256);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(363, 440);
+            this.tabControl1.Size = new System.Drawing.Size(363, 389);
             this.tabControl1.TabIndex = 0;
             // 
             // tabPage1
@@ -196,7 +201,7 @@
             this.tabPage1.Location = new System.Drawing.Point(4, 25);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(355, 411);
+            this.tabPage1.Size = new System.Drawing.Size(355, 360);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Informações";
             // 
@@ -213,7 +218,7 @@
             this.tableLayoutPanel4.RowCount = 1;
             this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 403F));
-            this.tableLayoutPanel4.Size = new System.Drawing.Size(349, 405);
+            this.tableLayoutPanel4.Size = new System.Drawing.Size(349, 354);
             this.tableLayoutPanel4.TabIndex = 0;
             // 
             // dtGridVertices
@@ -256,7 +261,7 @@
             this.dtGridVertices.RowTemplate.DefaultCellStyle.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.dtGridVertices.RowTemplate.DefaultCellStyle.Format = "N4";
             this.dtGridVertices.RowTemplate.DefaultCellStyle.NullValue = null;
-            this.dtGridVertices.Size = new System.Drawing.Size(339, 395);
+            this.dtGridVertices.Size = new System.Drawing.Size(339, 344);
             this.dtGridVertices.TabIndex = 0;
             // 
             // X
@@ -285,7 +290,7 @@
             this.tabPage2.Location = new System.Drawing.Point(4, 25);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(355, 411);
+            this.tabPage2.Size = new System.Drawing.Size(355, 360);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Configurações";
             // 
@@ -295,6 +300,7 @@
             this.tableLayoutPanel5.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel5.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel5.Controls.Add(this.tableLayoutPanel6, 0, 0);
+            this.tableLayoutPanel5.Controls.Add(this.cbFaceOculta, 1, 1);
             this.tableLayoutPanel5.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel5.Location = new System.Drawing.Point(3, 3);
             this.tableLayoutPanel5.Name = "tableLayoutPanel5";
@@ -303,7 +309,7 @@
             this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 45.25F));
             this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel5.Size = new System.Drawing.Size(349, 405);
+            this.tableLayoutPanel5.Size = new System.Drawing.Size(349, 354);
             this.tableLayoutPanel5.TabIndex = 0;
             // 
             // tableLayoutPanel6
@@ -321,7 +327,7 @@
             this.tableLayoutPanel6.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.tableLayoutPanel6.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.tableLayoutPanel6.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel6.Size = new System.Drawing.Size(168, 193);
+            this.tableLayoutPanel6.Size = new System.Drawing.Size(168, 165);
             this.tableLayoutPanel6.TabIndex = 0;
             // 
             // tlPaneIsonometrica
@@ -340,7 +346,7 @@
             this.tlPaneIsonometrica.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tlPaneIsonometrica.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 24F));
             this.tlPaneIsonometrica.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 24F));
-            this.tlPaneIsonometrica.Size = new System.Drawing.Size(128, 24);
+            this.tlPaneIsonometrica.Size = new System.Drawing.Size(128, 20);
             this.tlPaneIsonometrica.TabIndex = 0;
             // 
             // label1
@@ -348,7 +354,7 @@
             this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(3, 6);
+            this.label1.Location = new System.Drawing.Point(3, 2);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(106, 18);
             this.label1.TabIndex = 0;
@@ -365,7 +371,7 @@
             this.checkBoxIsometrica.Checked = true;
             this.checkBoxIsometrica.CheckState = System.Windows.Forms.CheckState.Checked;
             this.checkBoxIsometrica.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBoxIsometrica.Location = new System.Drawing.Point(112, 10);
+            this.checkBoxIsometrica.Location = new System.Drawing.Point(112, 6);
             this.checkBoxIsometrica.Margin = new System.Windows.Forms.Padding(0);
             this.checkBoxIsometrica.Name = "checkBoxIsometrica";
             this.checkBoxIsometrica.Size = new System.Drawing.Size(15, 14);
@@ -378,7 +384,7 @@
             this.panel1.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.panel1.BackColor = System.Drawing.SystemColors.ControlLight;
             this.panel1.Controls.Add(this.checkListIsonometrica);
-            this.panel1.Location = new System.Drawing.Point(20, 27);
+            this.panel1.Location = new System.Drawing.Point(20, 23);
             this.panel1.Margin = new System.Windows.Forms.Padding(3, 0, 3, 3);
             this.panel1.Name = "panel1";
             this.panel1.Padding = new System.Windows.Forms.Padding(20, 0, 0, 0);
@@ -405,26 +411,66 @@
             // 
             // tabPage3
             // 
+            this.tabPage3.Controls.Add(this.testZ);
             this.tabPage3.Location = new System.Drawing.Point(4, 25);
             this.tabPage3.Name = "tabPage3";
-            this.tabPage3.Size = new System.Drawing.Size(355, 411);
+            this.tabPage3.Size = new System.Drawing.Size(355, 360);
             this.tabPage3.TabIndex = 0;
             this.tabPage3.Text = "Sólido";
             this.tabPage3.UseVisualStyleBackColor = true;
+            // 
+            // testZ
+            // 
+            this.testZ.AutoSize = true;
+            this.testZ.Location = new System.Drawing.Point(14, 14);
+            this.testZ.Name = "testZ";
+            this.testZ.Size = new System.Drawing.Size(44, 16);
+            this.testZ.TabIndex = 1;
+            this.testZ.Text = "label2";
             // 
             // contextMenuStrip1
             // 
             this.contextMenuStrip1.Name = "contextMenuStrip1";
             this.contextMenuStrip1.Size = new System.Drawing.Size(61, 4);
             // 
-            // testZ
+            // tableLayoutPanel7
             // 
-            this.testZ.AutoSize = true;
-            this.testZ.Location = new System.Drawing.Point(5, 2);
-            this.testZ.Name = "testZ";
-            this.testZ.Size = new System.Drawing.Size(35, 13);
-            this.testZ.TabIndex = 1;
-            this.testZ.Text = "label2";
+            this.tableLayoutPanel7.ColumnCount = 1;
+            this.tableLayoutPanel7.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel7.Controls.Add(this.cbAramado, 0, 1);
+            this.tableLayoutPanel7.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanel7.Location = new System.Drawing.Point(5, 5);
+            this.tableLayoutPanel7.Name = "tableLayoutPanel7";
+            this.tableLayoutPanel7.RowCount = 2;
+            this.tableLayoutPanel7.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 48.55967F));
+            this.tableLayoutPanel7.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 51.44033F));
+            this.tableLayoutPanel7.Size = new System.Drawing.Size(363, 243);
+            this.tableLayoutPanel7.TabIndex = 1;
+            // 
+            // cbAramado
+            // 
+            this.cbAramado.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.cbAramado.AutoSize = true;
+            this.cbAramado.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cbAramado.Location = new System.Drawing.Point(140, 170);
+            this.cbAramado.Name = "cbAramado";
+            this.cbAramado.Size = new System.Drawing.Size(82, 20);
+            this.cbAramado.TabIndex = 0;
+            this.cbAramado.Text = "Aramado";
+            this.cbAramado.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.cbAramado.UseVisualStyleBackColor = true;
+            // 
+            // cbFaceOculta
+            // 
+            this.cbFaceOculta.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.cbFaceOculta.AutoSize = true;
+            this.cbFaceOculta.Location = new System.Drawing.Point(204, 230);
+            this.cbFaceOculta.Name = "cbFaceOculta";
+            this.cbFaceOculta.Size = new System.Drawing.Size(114, 24);
+            this.cbFaceOculta.TabIndex = 1;
+            this.cbFaceOculta.Text = "Face Oculta";
+            this.cbFaceOculta.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.cbFaceOculta.UseVisualStyleBackColor = true;
             // 
             // ComputerGraphic
             // 
@@ -449,17 +495,21 @@
             this.tableLayoutPanel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).EndInit();
             this.tableLayoutPanel3.ResumeLayout(false);
-            this.tableLayoutPanel3.PerformLayout();
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.tableLayoutPanel4.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dtGridVertices)).EndInit();
             this.tabPage2.ResumeLayout(false);
             this.tableLayoutPanel5.ResumeLayout(false);
+            this.tableLayoutPanel5.PerformLayout();
             this.tableLayoutPanel6.ResumeLayout(false);
             this.tlPaneIsonometrica.ResumeLayout(false);
             this.tlPaneIsonometrica.PerformLayout();
             this.panel1.ResumeLayout(false);
+            this.tabPage3.ResumeLayout(false);
+            this.tabPage3.PerformLayout();
+            this.tableLayoutPanel7.ResumeLayout(false);
+            this.tableLayoutPanel7.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -493,6 +543,9 @@
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.CheckedListBox checkListIsonometrica;
         private System.Windows.Forms.Label testZ;
+        private System.Windows.Forms.CheckBox cbFaceOculta;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel7;
+        private System.Windows.Forms.CheckBox cbAramado;
     }
 }
 
