@@ -222,7 +222,7 @@ namespace ComputerGraphic.Models
         public void PreencherComVertices(DataGridView dtGrid)
         {
             dtGrid.Rows.Clear();
-            foreach (var vertice in ListaNormaisFaces)
+            foreach (var vertice in ListaDesenhar)
             {
                 dtGrid.Rows.Add(new object[]
                 {
@@ -293,7 +293,7 @@ namespace ComputerGraphic.Models
 
         }
 
-        public void Projecao(bool ortografica, CheckedListBox listOrtografica, CheckedListBox listObliqua)
+        public void Projecao(bool ortografica, bool obliqua, bool perspectiva, CheckedListBox listOrtografica, CheckedListBox listObliqua)
         {
             double x, y, z;
             if (ortografica)
@@ -357,40 +357,26 @@ namespace ComputerGraphic.Models
             }
             else
             {
-                int selecionado = 0;
-                int total = listObliqua.Items.Count;
-                for (int i = 0; i < total; i++)
+                if (obliqua)
                 {
-                    if (selecionado != i)
+                    int selecionado = 0;
+                    int total = listObliqua.Items.Count;
+                    for (int i = 0; i < total; i++)
                     {
-                        if (listObliqua.GetItemChecked(i))
+                        if (selecionado != i)
                         {
-                            selecionado = i;
+                            if (listObliqua.GetItemChecked(i))
+                            {
+                                selecionado = i;
+                            }
                         }
                     }
-                }
 
-                double l, graus;
-                if (selecionado == 0)
-                {
-                    graus = 45;
-                    l = 1;
-                    ListaDesenhar.Clear();
-                    foreach (var vertice in ListaVerticesAtuais)
+                    double l, graus;
+                    if (selecionado == 0)
                     {
-                        x = vertice.X + vertice.Z * (l * Math.Cos((Math.PI / 180) * graus));
-                        y = vertice.Y + vertice.Z * (l * Math.Sin((Math.PI / 180) * graus));
-                        z = 0;
-
-                        ListaDesenhar.Add(new Vertice(x, y, z));
-                    }
-                }
-                else
-                {
-                    if (selecionado == 1)
-                    {
-                        graus = 63.4;
-                        l = 0.5;
+                        graus = 45;
+                        l = 1;
                         ListaDesenhar.Clear();
                         foreach (var vertice in ListaVerticesAtuais)
                         {
@@ -401,6 +387,39 @@ namespace ComputerGraphic.Models
                             ListaDesenhar.Add(new Vertice(x, y, z));
                         }
                     }
+                    else
+                    {
+                        if (selecionado == 1)
+                        {
+                            graus = 63.4;
+                            l = 0.5;
+                            ListaDesenhar.Clear();
+                            foreach (var vertice in ListaVerticesAtuais)
+                            {
+                                x = vertice.X + vertice.Z * (l * Math.Cos((Math.PI / 180) * graus));
+                                y = vertice.Y + vertice.Z * (l * Math.Sin((Math.PI / 180) * graus));
+                                z = 0;
+
+                                ListaDesenhar.Add(new Vertice(x, y, z));
+                            }
+                        }
+                    }
+                }                
+            }
+
+            // ----> CORRIGIR --- tem calcular o centro de projeção ?
+            // COLOCAR PERSPECTIVA
+            if (perspectiva)
+            {
+                double d = 10 / (Math.Tan(((Math.PI / 180) * 45)) / 2) * -1; 
+                ListaDesenhar.Clear();
+                foreach (var vertice in ListaVerticesAtuais)
+                {
+                    x = d * vertice.X / vertice.Z;
+                    y = d * vertice.Y / vertice.Z;
+                    z = vertice.Z;
+
+                    ListaDesenhar.Add(new Vertice(x, y, z));
                 }
             }
         }

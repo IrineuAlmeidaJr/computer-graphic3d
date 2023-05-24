@@ -171,11 +171,12 @@ namespace ComputerGraphic
                             }
                             _objeto3D.CalculaNormais();
                             // Projeção
-                            _objeto3D.Projecao(checkBoxOrtografica.Checked, checkListOrtografica, checkListObliqua);
+                            _objeto3D.Projecao(checkBoxOrtografica.Checked, checkBoxObliqua.Checked, checkBoxPerspectiva.Checked,
+                                checkListOrtografica, checkListObliqua);
                             // Desenha Objeto3D                                
                             _objeto3D.Desenhar(_imagem, pictureBox, _corBordaPincel, cbFaceOculta.Checked);
 
-                            //_objeto3D.PreencherComVertices(dtGridVertices);
+                            ////_objeto3D.PreencherComVertices(dtGridVertices);
 
                             _estaAberto = true;
                         }
@@ -258,7 +259,8 @@ namespace ComputerGraphic
                 if (_desenha)
                 {
                     _objeto3D.LimpaTela(_imagem, pictureBox, _corBordaBorracha);
-                    _objeto3D.Projecao(checkBoxOrtografica.Checked, checkListOrtografica, checkListObliqua);
+                    _objeto3D.Projecao(checkBoxOrtografica.Checked, checkBoxObliqua.Checked, checkBoxPerspectiva.Checked,
+                        checkListOrtografica, checkListObliqua);
                     if (pX)
                     {
                         _objeto3D.Escala(escala, 1, 1);
@@ -366,7 +368,8 @@ namespace ComputerGraphic
                         int tX = (e.X - _width/2 ) - (int)(_objeto3D.ListaVerticesAtuais[0].X);
                         int tY = (e.Y - _height/2) - (int)(_objeto3D.ListaVerticesAtuais[0].Y);
                         _objeto3D.Translacao(tX, tY, 0);
-                        _objeto3D.Projecao(checkBoxOrtografica.Checked, checkListOrtografica, checkListObliqua);
+                        _objeto3D.Projecao(checkBoxOrtografica.Checked, checkBoxObliqua.Checked, checkBoxPerspectiva.Checked,
+                            checkListOrtografica, checkListObliqua);
                         _objeto3D.Desenhar(_imagem, pictureBox, _corBordaPincel, cbFaceOculta.Checked);
                     }
 
@@ -391,7 +394,8 @@ namespace ComputerGraphic
                         {
                             _objeto3D.LimpaTela(_imagem, pictureBox, _corBordaBorracha);
                             _objeto3D.RotacaoX(grau);
-                            _objeto3D.Projecao(checkBoxOrtografica.Checked, checkListOrtografica, checkListObliqua);
+                            _objeto3D.Projecao(checkBoxOrtografica.Checked, checkBoxObliqua.Checked, checkBoxPerspectiva.Checked,
+                                checkListOrtografica, checkListObliqua);
                             _objeto3D.Desenhar(_imagem, pictureBox, _corBordaPincel, cbFaceOculta.Checked);
                         }
                         else
@@ -400,7 +404,8 @@ namespace ComputerGraphic
                             {
                                 _objeto3D.LimpaTela(_imagem, pictureBox, _corBordaBorracha);
                                 _objeto3D.RotacaoY(grau);
-                                _objeto3D.Projecao(checkBoxOrtografica.Checked, checkListOrtografica, checkListObliqua);
+                                _objeto3D.Projecao(checkBoxOrtografica.Checked, checkBoxObliqua.Checked, checkBoxPerspectiva.Checked,
+                                    checkListOrtografica, checkListObliqua);
                                 _objeto3D.Desenhar(_imagem, pictureBox, _corBordaPincel, cbFaceOculta.Checked);
                             }
                             else
@@ -409,7 +414,8 @@ namespace ComputerGraphic
                                 {
                                     _objeto3D.LimpaTela(_imagem, pictureBox, _corBordaBorracha);
                                     _objeto3D.RotacaoZ(grau);
-                                    _objeto3D.Projecao(checkBoxOrtografica.Checked, checkListOrtografica, checkListObliqua);
+                                    _objeto3D.Projecao(checkBoxOrtografica.Checked, checkBoxObliqua.Checked, checkBoxPerspectiva.Checked,
+                                        checkListOrtografica, checkListObliqua);
                                     _objeto3D.Desenhar(_imagem, pictureBox, _corBordaPincel, cbFaceOculta.Checked);
                                 }
                             }
