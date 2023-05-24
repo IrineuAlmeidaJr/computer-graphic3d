@@ -42,24 +42,24 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="ComputerGraphic.exe" size="39904">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="ComputerGraphic.exe" size="42976">
       <assemblyIdentity name="ComputerGraphic" version="1.0.0.0" language="neutral" processorArchitecture="amd64" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>2o3doJxvxYCNhrKw/IvT3zi0MLIqe7hGr0tUrdR+iv4=</dsig:DigestValue>
+        <dsig:DigestValue>8Pp6zW9g5LafMxkPHZL9WKVvOxBOhegPZqrVhZ3SzXg=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
-  <file name="ComputerGraphic.exe.config" size="189">
+  <file name="ComputerGraphic.exe.config" size="184">
     <hash>
       <dsig:Transforms>
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-      <dsig:DigestValue>R+Wg8QGvQVHX8T0ta/qbhH1bXkqY0fRnS3wBV3J0bN8=</dsig:DigestValue>
+      <dsig:DigestValue>X+GtgC9o18R9u9jmAWK6iKuu0WLaXTgchdPkk1MRli4=</dsig:DigestValue>
     </hash>
   </file>
   <compatibility xmlns="urn:schemas-microsoft-com:compatibility.v1">

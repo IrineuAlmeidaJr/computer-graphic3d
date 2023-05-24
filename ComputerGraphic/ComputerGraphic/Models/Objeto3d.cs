@@ -86,9 +86,9 @@ namespace ComputerGraphic.Models
                 //nJ = j / N;
                 //nK = k / N;
 
-                nI = i ;
-                nJ = j ;
-                nK = k ;
+                nI = i;
+                nJ = j;
+                nK = k;
 
                 ListaNormaisFacesOriginais.Add(new Vertice(nI, nJ, nK));
                 ListaNormaisFacesAtuais.Add(new Vertice(nI, nJ, nK));
@@ -239,42 +239,41 @@ namespace ComputerGraphic.Models
             ListaVerticesOriginais = new List<Vertice>(ListaVerticesAtuais);
         }
 
-        public void Desenhar(Bitmap imagem, PictureBox pictureBox, int corPincel, bool faceOculta)
+        public void Desenhar(Bitmap imagem, PictureBox pictureBox, int corPincel, bool faceOculta, int obliqua = 0)
         {
             if (ListaVerticesAtuais.Count > 1)
             {
+                double x1, y1, x2, y2;
+
                 int width = pictureBox.Width/2;
                 int height = pictureBox.Height/2;
 
-                int totalFace = ListaFaces.Count ;
+                int totalFace = ListaFaces.Count;
                 int totalVertice;
                 if (faceOculta)
                 {
                     for (int i = 0; i < totalFace; i++)
                     {
-
-                        if (ListaNormaisFacesAtuais[i].Z >= 0) frt
+                        if (ListaNormaisFacesAtuais[i].Z >= 0)
                         {
                             totalVertice = ListaFaces[i].Count - 1;
                             for (int j = 0; j < totalVertice; j++)
                             {
-                                Vertice.PontoMedio(ListaVerticesAtuais[ListaFaces[i][j]].X + width, ListaVerticesAtuais[ListaFaces[i][j]].Y + height,
-                                    ListaVerticesAtuais[ListaFaces[i][j + 1]].X + width, ListaVerticesAtuais[ListaFaces[i][j + 1]].Y + height, imagem, corPincel);
+                                x1 = ListaVerticesAtuais[ListaFaces[i][j]].X + width;
+                                y1 = ListaVerticesAtuais[ListaFaces[i][j]].Y + height;
+                                x2 = ListaVerticesAtuais[ListaFaces[i][j + 1]].X + width;
+                                y2 = ListaVerticesAtuais[ListaFaces[i][j + 1]].Y + height;
+
+                                Vertice.PontoMedio(x1, y1, x2, y2, imagem, corPincel);
                             }
-                            Vertice.PontoMedio(ListaVerticesAtuais[ListaFaces[i][totalVertice]].X + width, ListaVerticesAtuais[ListaFaces[i][totalVertice]].Y + +height,
-                                ListaVerticesAtuais[ListaFaces[i][0]].X + width, ListaVerticesAtuais[ListaFaces[i][0]].Y + height, imagem, corPincel);
+                            x1 = ListaVerticesAtuais[ListaFaces[i][totalVertice]].X + width;
+                            y1 = ListaVerticesAtuais[ListaFaces[i][totalVertice]].Y + height;
+                            x2 = ListaVerticesAtuais[ListaFaces[i][0]].X + width;
+                            y2 = ListaVerticesAtuais[ListaFaces[i][0]].Y + height;
+
+                            Vertice.PontoMedio(x1, y1, x2, y2, imagem, corPincel);
+
                         }
-
-                        // Preenchimento
-                        //EdgeTable lista = new EdgeTable(pictureBox.Height);
-                        //lista.Inicializar(new List<Vertice>() { 
-                        //    ListaVerticesAtuais[ListaFaces[i][0]], 
-                        //    ListaVerticesAtuais[ListaFaces[i][1]],
-                        //    ListaVerticesAtuais[ListaFaces[i][2]]
-                        //});
-
-                        //lista.Preencher(imagem, Color.Yellow, pictureBox);
-
                     }
                 }
                 else
@@ -284,24 +283,22 @@ namespace ComputerGraphic.Models
                         totalVertice = ListaFaces[i].Count - 1;
                         for (int j = 0; j < totalVertice; j++)
                         {
-                            Vertice.PontoMedio(ListaVerticesAtuais[ListaFaces[i][j]].X + width, ListaVerticesAtuais[ListaFaces[i][j]].Y + height,
-                                ListaVerticesAtuais[ListaFaces[i][j + 1]].X + width, ListaVerticesAtuais[ListaFaces[i][j + 1]].Y + height, imagem, corPincel);
+                            x1 = ListaVerticesAtuais[ListaFaces[i][j]].X + width;
+                            y1 = ListaVerticesAtuais[ListaFaces[i][j]].Y + height;
+                            x2 = ListaVerticesAtuais[ListaFaces[i][j + 1]].X + width;
+                            y2 = ListaVerticesAtuais[ListaFaces[i][j + 1]].Y + height;
+
+                            Vertice.PontoMedio(x1, y1, x2, y2, imagem, corPincel);
                         }
-                        Vertice.PontoMedio(ListaVerticesAtuais[ListaFaces[i][totalVertice]].X + width, ListaVerticesAtuais[ListaFaces[i][totalVertice]].Y + +height,
-                            ListaVerticesAtuais[ListaFaces[i][0]].X + width, ListaVerticesAtuais[ListaFaces[i][0]].Y + height, imagem, corPincel);
-                        
+                        x1 = ListaVerticesAtuais[ListaFaces[i][totalVertice]].X + width;
+                        y1 = ListaVerticesAtuais[ListaFaces[i][totalVertice]].Y + height;
+                        x2 = ListaVerticesAtuais[ListaFaces[i][0]].X + width;
+                        y2 = ListaVerticesAtuais[ListaFaces[i][0]].Y + height;
 
-                        // Preenchimento
-                        //EdgeTable lista = new EdgeTable(pictureBox.Height);
-                        //lista.Inicializar(new List<Vertice>() { 
-                        //    ListaVerticesAtuais[ListaFaces[i][0]], 
-                        //    ListaVerticesAtuais[ListaFaces[i][1]],
-                        //    ListaVerticesAtuais[ListaFaces[i][2]]
-                        //});
-
-                        //lista.Preencher(imagem, Color.Yellow, pictureBox);
-
+                        Vertice.PontoMedio(x1, y1, x2, y2, imagem, corPincel);
+                                
                     }
+                           
                 }
 
                
@@ -319,23 +316,37 @@ namespace ComputerGraphic.Models
         {
             if (ListaVerticesAtuais.Count > 1)
             {
+                double x1, y1, x2, y2;
+
                 int width = pictureBox.Width / 2;
                 int height = pictureBox.Height / 2;
 
                 int totalFace = ListaFaces.Count;
                 int totalVertice;
+
+                
                 for (int i = 0; i < totalFace; i++)
                 {
                     totalVertice = ListaFaces[i].Count - 1;
                     for (int j = 0; j < totalVertice; j++)
                     {
-                        Vertice.PontoMedio(ListaVerticesAtuais[ListaFaces[i][j]].X + width, ListaVerticesAtuais[ListaFaces[i][j]].Y + height,
-                            ListaVerticesAtuais[ListaFaces[i][j + 1]].X + width, ListaVerticesAtuais[ListaFaces[i][j + 1]].Y + height, imagem, corBoracha);
+                        x1 = ListaVerticesAtuais[ListaFaces[i][j]].X + width;
+                        y1 = ListaVerticesAtuais[ListaFaces[i][j]].Y + height;
+                        x2 = ListaVerticesAtuais[ListaFaces[i][j + 1]].X + width;
+                        y2 = ListaVerticesAtuais[ListaFaces[i][j + 1]].Y + height;
+
+                        Vertice.PontoMedio(x1, y1, x2, y2, imagem, corBoracha);
                     }
-                    Vertice.PontoMedio(ListaVerticesAtuais[ListaFaces[i][totalVertice]].X + width, ListaVerticesAtuais[ListaFaces[i][totalVertice]].Y + height,
-                        ListaVerticesAtuais[ListaFaces[i][0]].X + width, ListaVerticesAtuais[ListaFaces[i][0]].Y + height, imagem, corBoracha);
-                    
+                    x1 = ListaVerticesAtuais[ListaFaces[i][totalVertice]].X + width;
+                    y1 = ListaVerticesAtuais[ListaFaces[i][totalVertice]].Y + height;
+                    x2 = ListaVerticesAtuais[ListaFaces[i][0]].X + width;
+                    y2 = ListaVerticesAtuais[ListaFaces[i][0]].Y + height;
+
+                    Vertice.PontoMedio(x1, y1, x2, y2, imagem, corBoracha);
+
                 }
+
+                
 
                 pictureBox.Image = imagem;
             }
@@ -380,12 +391,19 @@ namespace ComputerGraphic.Models
             Centroide[2] = cZ / ListaVerticesAtuais.Count;
 
             // <--------- NORMAL FACE --------->
+            double N;
             ListaNormaisFacesAtuais.Clear();
             foreach (var normalFace in ListaNormaisFacesOriginais)
             {
                 normalX = normalFace.X * MatrizAcumulada[0, 0] + normalFace.Y * MatrizAcumulada[0, 1] + normalFace.Z * MatrizAcumulada[0, 2] + MatrizAcumulada[0, 3];
                 normalY = normalFace.X * MatrizAcumulada[1, 0] + normalFace.Y * MatrizAcumulada[1, 1] + normalFace.Z * MatrizAcumulada[1, 2] + MatrizAcumulada[1, 3];
                 normalZ = normalFace.X * MatrizAcumulada[2, 0] + normalFace.Y * MatrizAcumulada[2, 1] + normalFace.Z * MatrizAcumulada[2, 2] + MatrizAcumulada[2, 3];
+
+                N = Math.Sqrt(normalX * normalX + normalY * normalY + normalZ * normalZ);
+
+                normalX = normalX / N;
+                normalY = normalY / N;
+                normalZ = normalZ / N;
 
                 ListaNormaisFacesAtuais.Add(new Vertice(normalX, normalY, normalZ));
             }
@@ -397,6 +415,12 @@ namespace ComputerGraphic.Models
                 normalX = normalVertice.X * MatrizAcumulada[0, 0] + normalVertice.Y * MatrizAcumulada[0, 1] + normalVertice.Z * MatrizAcumulada[0, 2] + MatrizAcumulada[0, 3];
                 normalY = normalVertice.X * MatrizAcumulada[1, 0] + normalVertice.Y * MatrizAcumulada[1, 1] + normalVertice.Z * MatrizAcumulada[1, 2] + MatrizAcumulada[1, 3];
                 normalZ = normalVertice.X * MatrizAcumulada[2, 0] + normalVertice.Y * MatrizAcumulada[2, 1] + normalVertice.Z * MatrizAcumulada[2, 2] + MatrizAcumulada[2, 3];
+
+                N = Math.Sqrt(normalX * normalX + normalY * normalY + normalZ * normalZ);
+
+                normalX = normalX / N;
+                normalY = normalY / N;
+                normalZ = normalZ / N;
 
                 ListaNormaisVerticesAtuais.Add(new Vertice(normalX, normalY, normalZ));
             }

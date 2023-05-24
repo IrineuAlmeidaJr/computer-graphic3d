@@ -29,9 +29,9 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.arquivoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -53,15 +53,21 @@
             this.tableLayoutPanel6 = new System.Windows.Forms.TableLayoutPanel();
             this.tlPaneIsonometrica = new System.Windows.Forms.TableLayoutPanel();
             this.label1 = new System.Windows.Forms.Label();
-            this.checkBoxIsometrica = new System.Windows.Forms.CheckBox();
+            this.checkBoxOrtografica = new System.Windows.Forms.CheckBox();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.checkListIsonometrica = new System.Windows.Forms.CheckedListBox();
+            this.checkListOrtografica = new System.Windows.Forms.CheckedListBox();
+            this.cbFaceOculta = new System.Windows.Forms.CheckBox();
+            this.tableLayoutPanel8 = new System.Windows.Forms.TableLayoutPanel();
+            this.tableLayoutPanel9 = new System.Windows.Forms.TableLayoutPanel();
+            this.label2 = new System.Windows.Forms.Label();
+            this.checkBoxObliqua = new System.Windows.Forms.CheckBox();
+            this.panel2 = new System.Windows.Forms.Panel();
+            this.checkListObliqua = new System.Windows.Forms.CheckedListBox();
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.testZ = new System.Windows.Forms.Label();
-            this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.tableLayoutPanel7 = new System.Windows.Forms.TableLayoutPanel();
-            this.cbAramado = new System.Windows.Forms.CheckBox();
-            this.cbFaceOculta = new System.Windows.Forms.CheckBox();
+            this.checkedListBox2 = new System.Windows.Forms.CheckedListBox();
+            this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.tableLayoutPanel1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
@@ -76,6 +82,9 @@
             this.tableLayoutPanel6.SuspendLayout();
             this.tlPaneIsonometrica.SuspendLayout();
             this.panel1.SuspendLayout();
+            this.tableLayoutPanel8.SuspendLayout();
+            this.tableLayoutPanel9.SuspendLayout();
+            this.panel2.SuspendLayout();
             this.tabPage3.SuspendLayout();
             this.tableLayoutPanel7.SuspendLayout();
             this.SuspendLayout();
@@ -217,46 +226,46 @@
             this.tableLayoutPanel4.Name = "tableLayoutPanel4";
             this.tableLayoutPanel4.RowCount = 1;
             this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 403F));
+            this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 352F));
             this.tableLayoutPanel4.Size = new System.Drawing.Size(349, 354);
             this.tableLayoutPanel4.TabIndex = 0;
             // 
             // dtGridVertices
             // 
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dtGridVertices.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle4.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dtGridVertices.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle4;
             this.dtGridVertices.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dtGridVertices.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.X,
             this.Y,
             this.Z});
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle2.Format = "C4";
-            dataGridViewCellStyle2.NullValue = null;
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dtGridVertices.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle5.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle5.Format = "C4";
+            dataGridViewCellStyle5.NullValue = null;
+            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dtGridVertices.DefaultCellStyle = dataGridViewCellStyle5;
             this.dtGridVertices.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dtGridVertices.Location = new System.Drawing.Point(5, 5);
             this.dtGridVertices.Name = "dtGridVertices";
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dtGridVertices.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle6.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle6.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dtGridVertices.RowHeadersDefaultCellStyle = dataGridViewCellStyle6;
             this.dtGridVertices.RowTemplate.DefaultCellStyle.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
             this.dtGridVertices.RowTemplate.DefaultCellStyle.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.dtGridVertices.RowTemplate.DefaultCellStyle.Format = "N4";
@@ -301,6 +310,7 @@
             this.tableLayoutPanel5.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel5.Controls.Add(this.tableLayoutPanel6, 0, 0);
             this.tableLayoutPanel5.Controls.Add(this.cbFaceOculta, 1, 1);
+            this.tableLayoutPanel5.Controls.Add(this.tableLayoutPanel8, 1, 0);
             this.tableLayoutPanel5.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel5.Location = new System.Drawing.Point(3, 3);
             this.tableLayoutPanel5.Name = "tableLayoutPanel5";
@@ -322,8 +332,8 @@
             this.tableLayoutPanel6.Location = new System.Drawing.Point(3, 3);
             this.tableLayoutPanel6.Name = "tableLayoutPanel6";
             this.tableLayoutPanel6.RowCount = 2;
-            this.tableLayoutPanel6.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 14.50777F));
-            this.tableLayoutPanel6.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 85.49223F));
+            this.tableLayoutPanel6.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 13.93939F));
+            this.tableLayoutPanel6.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 86.06061F));
             this.tableLayoutPanel6.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.tableLayoutPanel6.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.tableLayoutPanel6.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
@@ -338,15 +348,15 @@
             this.tlPaneIsonometrica.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 87.5F));
             this.tlPaneIsonometrica.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 12.5F));
             this.tlPaneIsonometrica.Controls.Add(this.label1, 0, 0);
-            this.tlPaneIsonometrica.Controls.Add(this.checkBoxIsometrica, 1, 0);
+            this.tlPaneIsonometrica.Controls.Add(this.checkBoxOrtografica, 1, 0);
             this.tlPaneIsonometrica.Location = new System.Drawing.Point(20, 3);
             this.tlPaneIsonometrica.Margin = new System.Windows.Forms.Padding(20, 3, 20, 0);
             this.tlPaneIsonometrica.Name = "tlPaneIsonometrica";
             this.tlPaneIsonometrica.RowCount = 1;
             this.tlPaneIsonometrica.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tlPaneIsonometrica.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 24F));
-            this.tlPaneIsonometrica.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 24F));
-            this.tlPaneIsonometrica.Size = new System.Drawing.Size(128, 20);
+            this.tlPaneIsonometrica.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 19F));
+            this.tlPaneIsonometrica.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 19F));
+            this.tlPaneIsonometrica.Size = new System.Drawing.Size(128, 19);
             this.tlPaneIsonometrica.TabIndex = 0;
             // 
             // label1
@@ -354,60 +364,157 @@
             this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(3, 2);
+            this.label1.Location = new System.Drawing.Point(3, 1);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(106, 18);
+            this.label1.Size = new System.Drawing.Size(93, 18);
             this.label1.TabIndex = 0;
-            this.label1.Text = "Isonométrica";
+            this.label1.Text = "Ortográfica";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // checkBoxIsometrica
+            // checkBoxOrtografica
             // 
-            this.checkBoxIsometrica.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
-            this.checkBoxIsometrica.AutoSize = true;
-            this.checkBoxIsometrica.BackColor = System.Drawing.Color.Transparent;
-            this.checkBoxIsometrica.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.checkBoxIsometrica.CheckAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.checkBoxIsometrica.Checked = true;
-            this.checkBoxIsometrica.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBoxIsometrica.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBoxIsometrica.Location = new System.Drawing.Point(112, 6);
-            this.checkBoxIsometrica.Margin = new System.Windows.Forms.Padding(0);
-            this.checkBoxIsometrica.Name = "checkBoxIsometrica";
-            this.checkBoxIsometrica.Size = new System.Drawing.Size(15, 14);
-            this.checkBoxIsometrica.TabIndex = 1;
-            this.checkBoxIsometrica.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.checkBoxIsometrica.UseVisualStyleBackColor = false;
+            this.checkBoxOrtografica.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+            this.checkBoxOrtografica.AutoSize = true;
+            this.checkBoxOrtografica.BackColor = System.Drawing.Color.Transparent;
+            this.checkBoxOrtografica.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.checkBoxOrtografica.CheckAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.checkBoxOrtografica.Checked = true;
+            this.checkBoxOrtografica.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.checkBoxOrtografica.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBoxOrtografica.Location = new System.Drawing.Point(112, 5);
+            this.checkBoxOrtografica.Margin = new System.Windows.Forms.Padding(0);
+            this.checkBoxOrtografica.Name = "checkBoxOrtografica";
+            this.checkBoxOrtografica.Size = new System.Drawing.Size(15, 14);
+            this.checkBoxOrtografica.TabIndex = 1;
+            this.checkBoxOrtografica.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.checkBoxOrtografica.UseVisualStyleBackColor = false;
+            this.checkBoxOrtografica.CheckedChanged += new System.EventHandler(this.checkBoxOrtografica_CheckedChanged);
             // 
             // panel1
             // 
             this.panel1.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.panel1.BackColor = System.Drawing.SystemColors.ControlLight;
-            this.panel1.Controls.Add(this.checkListIsonometrica);
-            this.panel1.Location = new System.Drawing.Point(20, 23);
+            this.panel1.Controls.Add(this.checkListOrtografica);
+            this.panel1.Location = new System.Drawing.Point(20, 22);
             this.panel1.Margin = new System.Windows.Forms.Padding(3, 0, 3, 3);
             this.panel1.Name = "panel1";
             this.panel1.Padding = new System.Windows.Forms.Padding(20, 0, 0, 0);
-            this.panel1.Size = new System.Drawing.Size(128, 65);
+            this.panel1.Size = new System.Drawing.Size(128, 82);
             this.panel1.TabIndex = 1;
             // 
-            // checkListIsonometrica
+            // checkListOrtografica
             // 
-            this.checkListIsonometrica.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.checkListIsonometrica.BackColor = System.Drawing.SystemColors.ControlLight;
-            this.checkListIsonometrica.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.checkListIsonometrica.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkListIsonometrica.FormattingEnabled = true;
-            this.checkListIsonometrica.Items.AddRange(new object[] {
-            "X, Y",
-            "X, Z",
-            "Y, Z"});
-            this.checkListIsonometrica.Location = new System.Drawing.Point(14, 8);
-            this.checkListIsonometrica.Margin = new System.Windows.Forms.Padding(0, 0, 3, 3);
-            this.checkListIsonometrica.Name = "checkListIsonometrica";
-            this.checkListIsonometrica.Size = new System.Drawing.Size(100, 51);
-            this.checkListIsonometrica.TabIndex = 2;
-            this.checkListIsonometrica.SelectedIndexChanged += new System.EventHandler(this.checkListIsonometrica_SelectedIndexChanged);
+            this.checkListOrtografica.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.checkListOrtografica.BackColor = System.Drawing.SystemColors.ControlLight;
+            this.checkListOrtografica.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.checkListOrtografica.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkListOrtografica.FormattingEnabled = true;
+            this.checkListOrtografica.Items.AddRange(new object[] {
+            "Frontal (X, Y) ",
+            "Superior (X, Z)",
+            "Lateral (Y, Z)"});
+            this.checkListOrtografica.Location = new System.Drawing.Point(6, 8);
+            this.checkListOrtografica.Margin = new System.Windows.Forms.Padding(0, 0, 3, 3);
+            this.checkListOrtografica.Name = "checkListOrtografica";
+            this.checkListOrtografica.Size = new System.Drawing.Size(122, 68);
+            this.checkListOrtografica.TabIndex = 2;
+            this.checkListOrtografica.SelectedIndexChanged += new System.EventHandler(this.checkListOrtografica_SelectedIndexChanged);
+            // 
+            // cbFaceOculta
+            // 
+            this.cbFaceOculta.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.cbFaceOculta.AutoSize = true;
+            this.cbFaceOculta.BackColor = System.Drawing.SystemColors.ControlLight;
+            this.cbFaceOculta.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cbFaceOculta.Location = new System.Drawing.Point(198, 227);
+            this.cbFaceOculta.Name = "cbFaceOculta";
+            this.cbFaceOculta.Padding = new System.Windows.Forms.Padding(4);
+            this.cbFaceOculta.Size = new System.Drawing.Size(126, 30);
+            this.cbFaceOculta.TabIndex = 1;
+            this.cbFaceOculta.Text = "Face Oculta";
+            this.cbFaceOculta.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.cbFaceOculta.UseVisualStyleBackColor = false;
+            // 
+            // tableLayoutPanel8
+            // 
+            this.tableLayoutPanel8.ColumnCount = 1;
+            this.tableLayoutPanel8.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel8.Controls.Add(this.tableLayoutPanel9, 0, 0);
+            this.tableLayoutPanel8.Controls.Add(this.panel2, 0, 1);
+            this.tableLayoutPanel8.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanel8.Location = new System.Drawing.Point(177, 3);
+            this.tableLayoutPanel8.Name = "tableLayoutPanel8";
+            this.tableLayoutPanel8.RowCount = 2;
+            this.tableLayoutPanel8.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 15.15152F));
+            this.tableLayoutPanel8.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 84.84849F));
+            this.tableLayoutPanel8.Size = new System.Drawing.Size(169, 165);
+            this.tableLayoutPanel8.TabIndex = 2;
+            // 
+            // tableLayoutPanel9
+            // 
+            this.tableLayoutPanel9.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.tableLayoutPanel9.BackColor = System.Drawing.SystemColors.ControlLight;
+            this.tableLayoutPanel9.ColumnCount = 2;
+            this.tableLayoutPanel9.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 76.04166F));
+            this.tableLayoutPanel9.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 23.95833F));
+            this.tableLayoutPanel9.Controls.Add(this.label2, 0, 0);
+            this.tableLayoutPanel9.Controls.Add(this.checkBoxObliqua, 1, 0);
+            this.tableLayoutPanel9.Location = new System.Drawing.Point(20, 3);
+            this.tableLayoutPanel9.Margin = new System.Windows.Forms.Padding(3, 3, 3, 0);
+            this.tableLayoutPanel9.Name = "tableLayoutPanel9";
+            this.tableLayoutPanel9.RowCount = 1;
+            this.tableLayoutPanel9.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel9.Size = new System.Drawing.Size(129, 22);
+            this.tableLayoutPanel9.TabIndex = 0;
+            // 
+            // label2
+            // 
+            this.label2.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.Location = new System.Drawing.Point(16, 2);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(65, 18);
+            this.label2.TabIndex = 0;
+            this.label2.Text = "Oblíqua";
+            // 
+            // checkBoxObliqua
+            // 
+            this.checkBoxObliqua.AutoSize = true;
+            this.checkBoxObliqua.Dock = System.Windows.Forms.DockStyle.Left;
+            this.checkBoxObliqua.Location = new System.Drawing.Point(101, 3);
+            this.checkBoxObliqua.Name = "checkBoxObliqua";
+            this.checkBoxObliqua.Size = new System.Drawing.Size(15, 16);
+            this.checkBoxObliqua.TabIndex = 1;
+            this.checkBoxObliqua.UseVisualStyleBackColor = true;
+            this.checkBoxObliqua.CheckedChanged += new System.EventHandler(this.checkBoxObliqua_CheckedChanged);
+            // 
+            // panel2
+            // 
+            this.panel2.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.panel2.BackColor = System.Drawing.SystemColors.ControlLight;
+            this.panel2.Controls.Add(this.checkListObliqua);
+            this.panel2.Location = new System.Drawing.Point(20, 25);
+            this.panel2.Margin = new System.Windows.Forms.Padding(3, 0, 3, 3);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(129, 57);
+            this.panel2.TabIndex = 1;
+            // 
+            // checkListObliqua
+            // 
+            this.checkListObliqua.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.checkListObliqua.BackColor = System.Drawing.SystemColors.ControlLight;
+            this.checkListObliqua.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.checkListObliqua.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkListObliqua.FormattingEnabled = true;
+            this.checkListObliqua.Items.AddRange(new object[] {
+            "Cabinet",
+            "Cavaleira"});
+            this.checkListObliqua.Location = new System.Drawing.Point(19, 3);
+            this.checkListObliqua.Name = "checkListObliqua";
+            this.checkListObliqua.Size = new System.Drawing.Size(92, 51);
+            this.checkListObliqua.TabIndex = 0;
+            this.checkListObliqua.SelectedIndexChanged += new System.EventHandler(this.checkListObliqua_SelectedIndexChanged);
             // 
             // tabPage3
             // 
@@ -428,49 +535,39 @@
             this.testZ.TabIndex = 1;
             this.testZ.Text = "label2";
             // 
-            // contextMenuStrip1
-            // 
-            this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(61, 4);
-            // 
             // tableLayoutPanel7
             // 
             this.tableLayoutPanel7.ColumnCount = 1;
             this.tableLayoutPanel7.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel7.Controls.Add(this.cbAramado, 0, 1);
+            this.tableLayoutPanel7.Controls.Add(this.checkedListBox2, 0, 1);
             this.tableLayoutPanel7.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel7.Location = new System.Drawing.Point(5, 5);
             this.tableLayoutPanel7.Name = "tableLayoutPanel7";
             this.tableLayoutPanel7.RowCount = 2;
-            this.tableLayoutPanel7.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 48.55967F));
-            this.tableLayoutPanel7.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 51.44033F));
+            this.tableLayoutPanel7.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 14.40329F));
+            this.tableLayoutPanel7.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 85.59671F));
             this.tableLayoutPanel7.Size = new System.Drawing.Size(363, 243);
             this.tableLayoutPanel7.TabIndex = 1;
             // 
-            // cbAramado
+            // checkedListBox2
             // 
-            this.cbAramado.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.cbAramado.AutoSize = true;
-            this.cbAramado.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cbAramado.Location = new System.Drawing.Point(140, 170);
-            this.cbAramado.Name = "cbAramado";
-            this.cbAramado.Size = new System.Drawing.Size(82, 20);
-            this.cbAramado.TabIndex = 0;
-            this.cbAramado.Text = "Aramado";
-            this.cbAramado.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.cbAramado.UseVisualStyleBackColor = true;
+            this.checkedListBox2.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.checkedListBox2.BackColor = System.Drawing.SystemColors.ControlLight;
+            this.checkedListBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkedListBox2.ForeColor = System.Drawing.SystemColors.WindowText;
+            this.checkedListBox2.FormattingEnabled = true;
+            this.checkedListBox2.Items.AddRange(new object[] {
+            "Aramado",
+            "Sólido"});
+            this.checkedListBox2.Location = new System.Drawing.Point(125, 117);
+            this.checkedListBox2.Name = "checkedListBox2";
+            this.checkedListBox2.Size = new System.Drawing.Size(112, 42);
+            this.checkedListBox2.TabIndex = 0;
             // 
-            // cbFaceOculta
+            // contextMenuStrip1
             // 
-            this.cbFaceOculta.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.cbFaceOculta.AutoSize = true;
-            this.cbFaceOculta.Location = new System.Drawing.Point(204, 230);
-            this.cbFaceOculta.Name = "cbFaceOculta";
-            this.cbFaceOculta.Size = new System.Drawing.Size(114, 24);
-            this.cbFaceOculta.TabIndex = 1;
-            this.cbFaceOculta.Text = "Face Oculta";
-            this.cbFaceOculta.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.cbFaceOculta.UseVisualStyleBackColor = true;
+            this.contextMenuStrip1.Name = "contextMenuStrip1";
+            this.contextMenuStrip1.Size = new System.Drawing.Size(61, 4);
             // 
             // ComputerGraphic
             // 
@@ -506,10 +603,13 @@
             this.tlPaneIsonometrica.ResumeLayout(false);
             this.tlPaneIsonometrica.PerformLayout();
             this.panel1.ResumeLayout(false);
+            this.tableLayoutPanel8.ResumeLayout(false);
+            this.tableLayoutPanel9.ResumeLayout(false);
+            this.tableLayoutPanel9.PerformLayout();
+            this.panel2.ResumeLayout(false);
             this.tabPage3.ResumeLayout(false);
             this.tabPage3.PerformLayout();
             this.tableLayoutPanel7.ResumeLayout(false);
-            this.tableLayoutPanel7.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -539,13 +639,19 @@
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel6;
         private System.Windows.Forms.TableLayoutPanel tlPaneIsonometrica;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.CheckBox checkBoxIsometrica;
+        private System.Windows.Forms.CheckBox checkBoxOrtografica;
         private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.CheckedListBox checkListIsonometrica;
+        private System.Windows.Forms.CheckedListBox checkListOrtografica;
         private System.Windows.Forms.Label testZ;
         private System.Windows.Forms.CheckBox cbFaceOculta;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel7;
-        private System.Windows.Forms.CheckBox cbAramado;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel8;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel9;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.CheckBox checkBoxObliqua;
+        private System.Windows.Forms.Panel panel2;
+        private System.Windows.Forms.CheckedListBox checkListObliqua;
+        private System.Windows.Forms.CheckedListBox checkedListBox2;
     }
 }
 
