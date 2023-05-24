@@ -17,6 +17,7 @@ namespace ComputerGraphic
 {
     public partial class ComputerGraphic : Form
     {
+        private bool _estaAberto;
 
         private Objeto3d _objeto3D;
         private Bitmap _imagem;
@@ -32,6 +33,8 @@ namespace ComputerGraphic
 
         public ComputerGraphic()
         {
+            _estaAberto = false;
+
             InitializeComponent();
             _objeto3D = null;
             _width = pictureBox.Width;
@@ -65,6 +68,8 @@ namespace ComputerGraphic
                 {
                     if (ofd.ShowDialog() == DialogResult.OK)
                     {
+                        _estaAberto = false;
+
                         if (_objeto3D != null)
                         {
                             _objeto3D.LimpaTela(_imagem, pictureBox, _corBordaBorracha);
@@ -103,8 +108,9 @@ namespace ComputerGraphic
                                                 .Add(new Vertice(x, y, z));
                                             _objeto3D.ListaVerticesAtuais
                                                 .Add(new Vertice(x, y, z));
-                                            break;
 
+                                            _objeto3D.ListaNormaisVertices.Add(new Vertice(0, 0, 0));
+                                            break;
                                         case "f":
                                             List<int> posVertices = new List<int>();
                                             for (int i = 1; i < dados.Length; i++)
@@ -143,10 +149,8 @@ namespace ComputerGraphic
                                             _objeto3D.ListaVerticesAtuais
                                                 .Add(new Vertice(x, y, z));
                                             
-                                            _objeto3D.ListaNormaisVerticesOriginais.Add(new Vertice(0, 0, 0));
-                                            _objeto3D.ListaNormaisVerticesAtuais.Add(new Vertice(0, 0, 0));
+                                            _objeto3D.ListaNormaisVertices.Add(new Vertice(0, 0, 0));
                                             break;
-
                                         case "f":
                                             List<int> posVertices = new List<int>();
                                             for (int i = 1; i < dados.Length; i++)
@@ -165,11 +169,15 @@ namespace ComputerGraphic
                                     }
                                 }
                             }
-                            _objeto3D.inicializaNormais();
+                            _objeto3D.CalculaNormais();
+                            // Projeção
+                            _objeto3D.Projecao(checkBoxOrtografica.Checked, checkListOrtografica, checkListObliqua);
                             // Desenha Objeto3D                                
                             _objeto3D.Desenhar(_imagem, pictureBox, _corBordaPincel, cbFaceOculta.Checked);
 
                             //_objeto3D.PreencherComVertices(dtGridVertices);
+
+                            _estaAberto = true;
                         }
 
                     }
@@ -204,10 +212,8 @@ namespace ComputerGraphic
 
         private void checkListOrtografica_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (_objeto3D != null)
+            if (_estaAberto)
             {
-
-
                 int antes = 0;
                 int atual = checkListOrtografica.SelectedIndex;
                 int count = checkListOrtografica.Items.Count;
@@ -223,92 +229,12 @@ namespace ComputerGraphic
                     }
                 }
                 checkListOrtografica.SetItemChecked(atual, true);
-
-
-
-                //MessageBox.Show($"Antes - {antes} | Atual - {atual}");
-
-                if (checkBoxOrtografica.Checked)
-                {
-                    int tX, tY;
-                    _objeto3D.LimpaTela(_imagem, pictureBox, _corBordaBorracha);
-                    switch (antes)
-                    {
-                        // X, Y, Z
-                        case 0:
-                            // X, Z, Y -> Superior
-                            if (atual == 1)
-                            {
-                                _objeto3D.MudarVista('X', 'Y', 'X', 'Z');
-                                _objeto3D.Desenhar(_imagem, pictureBox, _corBordaPincel, cbFaceOculta.Checked);
-                            }
-                            else // Y, Z, X -> Lateral
-                            {
-                                if (atual == 2)
-                                {
-                                    _objeto3D.MudarVista('X', 'Y', 'Y', 'Z');
-                                    _objeto3D.Desenhar(_imagem, pictureBox, _corBordaPincel, cbFaceOculta.Checked);
-                                }
-                                else
-                                {
-                                    // Manteve no X, Y, Z
-                                }
-                            }
-
-                            break;
-                        // X, Z, Y
-                        case 1:
-                            // X, Y, Z -> Frontal
-                            if (atual == 0)
-                            {
-                                _objeto3D.MudarVista('X', 'Z', 'X', 'Y');
-                                _objeto3D.Desenhar(_imagem, pictureBox, _corBordaPincel, cbFaceOculta.Checked);
-                            }
-                            else
-                            {
-                                // Y, Z, X->Lateral
-                                if (atual == 2)
-                                {
-                                    _objeto3D.MudarVista('X', 'Z', 'Y', 'Z');
-                                    _objeto3D.Desenhar(_imagem, pictureBox, _corBordaPincel, cbFaceOculta.Checked);
-                                }
-                                else
-                                {
-                                    // Manteve no X, Z, Y
-                                }
-                            }
-                            break;
-                        // Y, Z, X
-                        case 2:
-                            // X, Y, Z -> Frontal
-                            if (atual == 0)
-                            {
-                                _objeto3D.MudarVista('Y', 'Z', 'X', 'Y');
-                                _objeto3D.Desenhar(_imagem, pictureBox, _corBordaPincel, cbFaceOculta.Checked);
-                            }
-                            else
-                            {
-                                // X, Z, Y -> Superior
-                                if (atual == 1)
-                                {
-                                    _objeto3D.MudarVista('Y', 'Z', 'X', 'Z');
-                                    _objeto3D.Desenhar(_imagem, pictureBox, _corBordaPincel, cbFaceOculta.Checked);
-                                }
-                                else
-                                {
-                                    // Manteve no Y, Z, X
-                                }
-                            }
-                            break;
-                        default: break;
-                    }
-                }
             }
         }
 
         private void checkListObliqua_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (_objeto3D != null)
+            if (_estaAberto)
             {
                 int atual = checkListObliqua.SelectedIndex;
                 int count = checkListObliqua.Items.Count;
@@ -320,11 +246,6 @@ namespace ComputerGraphic
                     }
                 }
                 checkListObliqua.SetItemChecked(atual, true);
-
-                if (checkBoxObliqua.Checked)
-                {
-                   
-                }
             }
         }
 
@@ -332,13 +253,14 @@ namespace ComputerGraphic
         private void PictureBoxMouseWheel(object sender, MouseEventArgs e)
         {
             double escala = e.Delta > 0 ? 1.05 : 0.95;
-            if (_objeto3D != null)
+            if (_estaAberto)
             {
                 if (_desenha)
                 {
+                    _objeto3D.LimpaTela(_imagem, pictureBox, _corBordaBorracha);
+                    _objeto3D.Projecao(checkBoxOrtografica.Checked, checkListOrtografica, checkListObliqua);
                     if (pX)
                     {
-                        _objeto3D.LimpaTela(_imagem, pictureBox, _corBordaBorracha);
                         _objeto3D.Escala(escala, 1, 1);
                         _objeto3D.Desenhar(_imagem, pictureBox, _corBordaPincel, cbFaceOculta.Checked);
                     }
@@ -346,7 +268,6 @@ namespace ComputerGraphic
                     {
                         if (pY)
                         {
-                            _objeto3D.LimpaTela(_imagem, pictureBox, _corBordaBorracha);
                             _objeto3D.Escala(1, escala, 1);
                             _objeto3D.Desenhar(_imagem, pictureBox, _corBordaPincel, cbFaceOculta.Checked);
                         }
@@ -354,13 +275,11 @@ namespace ComputerGraphic
                         {
                             if (pZ)
                             {
-                                _objeto3D.LimpaTela(_imagem, pictureBox, _corBordaBorracha);
                                 _objeto3D.Escala(1, 1, escala);
                                 _objeto3D.Desenhar(_imagem, pictureBox, _corBordaPincel, cbFaceOculta.Checked);
                             }
                             else
                             {
-                                _objeto3D.LimpaTela(_imagem, pictureBox, _corBordaBorracha);
                                 _objeto3D.Escala(escala, escala, escala);
                                 _objeto3D.Desenhar(_imagem, pictureBox, _corBordaPincel, cbFaceOculta.Checked);
                             }
@@ -435,19 +354,19 @@ namespace ComputerGraphic
              
         private void pictureBox_MouseMove(object sender, MouseEventArgs e)
         {
-            if (_objeto3D != null)
+            if (_estaAberto)
             {
                 //_objeto3D.PreencherComVertices(dtGridVertices);
                 if (_desenha)
                 {
                     if (e.Button == MouseButtons.Left)
-                    {   
+                    {
+
                         _objeto3D.LimpaTela(_imagem, pictureBox, _corBordaBorracha);
                         int tX = (e.X - _width/2 ) - (int)(_objeto3D.ListaVerticesAtuais[0].X);
                         int tY = (e.Y - _height/2) - (int)(_objeto3D.ListaVerticesAtuais[0].Y);
                         _objeto3D.Translacao(tX, tY, 0);
-                        // Desenha Objeto3D
-
+                        _objeto3D.Projecao(checkBoxOrtografica.Checked, checkListOrtografica, checkListObliqua);
                         _objeto3D.Desenhar(_imagem, pictureBox, _corBordaPincel, cbFaceOculta.Checked);
                     }
 
@@ -472,6 +391,7 @@ namespace ComputerGraphic
                         {
                             _objeto3D.LimpaTela(_imagem, pictureBox, _corBordaBorracha);
                             _objeto3D.RotacaoX(grau);
+                            _objeto3D.Projecao(checkBoxOrtografica.Checked, checkListOrtografica, checkListObliqua);
                             _objeto3D.Desenhar(_imagem, pictureBox, _corBordaPincel, cbFaceOculta.Checked);
                         }
                         else
@@ -480,6 +400,7 @@ namespace ComputerGraphic
                             {
                                 _objeto3D.LimpaTela(_imagem, pictureBox, _corBordaBorracha);
                                 _objeto3D.RotacaoY(grau);
+                                _objeto3D.Projecao(checkBoxOrtografica.Checked, checkListOrtografica, checkListObliqua);
                                 _objeto3D.Desenhar(_imagem, pictureBox, _corBordaPincel, cbFaceOculta.Checked);
                             }
                             else
@@ -488,6 +409,7 @@ namespace ComputerGraphic
                                 {
                                     _objeto3D.LimpaTela(_imagem, pictureBox, _corBordaBorracha);
                                     _objeto3D.RotacaoZ(grau);
+                                    _objeto3D.Projecao(checkBoxOrtografica.Checked, checkListOrtografica, checkListObliqua);
                                     _objeto3D.Desenhar(_imagem, pictureBox, _corBordaPincel, cbFaceOculta.Checked);
                                 }
                             }
