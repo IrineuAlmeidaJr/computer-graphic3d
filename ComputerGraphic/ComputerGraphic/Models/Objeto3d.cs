@@ -107,7 +107,7 @@ namespace ComputerGraphic.Models
             }
         }
 
-        public void Desenhar(Bitmap imagem, PictureBox pictureBox, int corPincel, bool faceOculta, int obliqua = 0)
+        public void Desenhar(Bitmap imagem, PictureBox pictureBox, int corPincel, bool faceOculta, int formaDesenhar=2)
         {
             if (ListaDesenhar.Count > 1)
             {
@@ -120,9 +120,47 @@ namespace ComputerGraphic.Models
                 int totalVertice;
                 if (faceOculta)
                 {
-                    for (int i = 0; i < totalFace; i++)
+
+                    if (formaDesenhar == 0) // -> Desenha Aramado
                     {
-                        if (ListaNormaisFaces[i].Z >= 0)
+                        for (int i = 0; i < totalFace; i++)
+                        {
+                            if (ListaNormaisFaces[i].Z >= 0)
+                            {
+                                totalVertice = ListaFaces[i].Count - 1;
+                                for (int j = 0; j < totalVertice; j++)
+                                {
+                                    x1 = ListaDesenhar[ListaFaces[i][j]].X + width;
+                                    y1 = ListaDesenhar[ListaFaces[i][j]].Y + height;
+                                    x2 = ListaDesenhar[ListaFaces[i][j + 1]].X + width;
+                                    y2 = ListaDesenhar[ListaFaces[i][j + 1]].Y + height;
+
+                                    Vertice.PontoMedio(x1, y1, x2, y2, imagem, corPincel);
+                                }
+                                x1 = ListaDesenhar[ListaFaces[i][totalVertice]].X + width;
+                                y1 = ListaDesenhar[ListaFaces[i][totalVertice]].Y + height;
+                                x2 = ListaDesenhar[ListaFaces[i][0]].X + width;
+                                y2 = ListaDesenhar[ListaFaces[i][0]].Y + height;
+
+                                Vertice.PontoMedio(x1, y1, x2, y2, imagem, corPincel);
+
+                            }
+                        }
+                    }
+                    else // -> Desenha Sólido
+                    {
+                        if (formaDesenhar == 1)
+                        {
+
+                        }
+                    }
+                }
+                else
+                {
+
+                    if (formaDesenhar == 0) // -> Desenha Aramado
+                    {
+                        for (int i = 0; i < totalFace; i++)
                         {
                             totalVertice = ListaFaces[i].Count - 1;
                             for (int j = 0; j < totalVertice; j++)
@@ -140,37 +178,16 @@ namespace ComputerGraphic.Models
                             y2 = ListaDesenhar[ListaFaces[i][0]].Y + height;
 
                             Vertice.PontoMedio(x1, y1, x2, y2, imagem, corPincel);
-
                         }
                     }
-                }
-                else
-                {
-                    for (int i = 0; i < totalFace; i++)
+                    else // -> Desenha Sólido
                     {
-                        totalVertice = ListaFaces[i].Count - 1;
-                        for (int j = 0; j < totalVertice; j++)
+                        if (formaDesenhar == 1)
                         {
-                            x1 = ListaDesenhar[ListaFaces[i][j]].X + width;
-                            y1 = ListaDesenhar[ListaFaces[i][j]].Y + height;
-                            x2 = ListaDesenhar[ListaFaces[i][j + 1]].X + width;
-                            y2 = ListaDesenhar[ListaFaces[i][j + 1]].Y + height;
 
-                            Vertice.PontoMedio(x1, y1, x2, y2, imagem, corPincel);
                         }
-                        x1 = ListaDesenhar[ListaFaces[i][totalVertice]].X + width;
-                        y1 = ListaDesenhar[ListaFaces[i][totalVertice]].Y + height;
-                        x2 = ListaDesenhar[ListaFaces[i][0]].X + width;
-                        y2 = ListaDesenhar[ListaFaces[i][0]].Y + height;
-
-                        Vertice.PontoMedio(x1, y1, x2, y2, imagem, corPincel);
-                                
                     }
-                           
                 }
-
-               
-
 
                 // Aqui arrumar para pintar, pois, tem que passar tambem a lista de faces
                 //
@@ -180,7 +197,7 @@ namespace ComputerGraphic.Models
             }
         }
 
-        public void LimpaTela(Bitmap imagem, PictureBox pictureBox, int corBoracha)
+        public void LimpaTela(Bitmap imagem, PictureBox pictureBox, int corBoracha, int formaDesenhar = 2)
         {
             if (ListaVerticesAtuais.Count > 1)
             {
@@ -192,28 +209,35 @@ namespace ComputerGraphic.Models
                 int totalFace = ListaFaces.Count;
                 int totalVertice;
 
-
-                for (int i = 0; i < totalFace; i++)
+                if (formaDesenhar == 0)
                 {
-                    totalVertice = ListaFaces[i].Count - 1;
-                    for (int j = 0; j < totalVertice; j++)
+                    for (int i = 0; i < totalFace; i++)
                     {
-                        x1 = ListaDesenhar[ListaFaces[i][j]].X + width;
-                        y1 = ListaDesenhar[ListaFaces[i][j]].Y + height;
-                        x2 = ListaDesenhar[ListaFaces[i][j + 1]].X + width;
-                        y2 = ListaDesenhar[ListaFaces[i][j + 1]].Y + height;
+                        totalVertice = ListaFaces[i].Count - 1;
+                        for (int j = 0; j < totalVertice; j++)
+                        {
+                            x1 = ListaDesenhar[ListaFaces[i][j]].X + width;
+                            y1 = ListaDesenhar[ListaFaces[i][j]].Y + height;
+                            x2 = ListaDesenhar[ListaFaces[i][j + 1]].X + width;
+                            y2 = ListaDesenhar[ListaFaces[i][j + 1]].Y + height;
+
+                            Vertice.PontoMedio(x1, y1, x2, y2, imagem, corBoracha);
+                        }
+                        x1 = ListaDesenhar[ListaFaces[i][totalVertice]].X + width;
+                        y1 = ListaDesenhar[ListaFaces[i][totalVertice]].Y + height;
+                        x2 = ListaDesenhar[ListaFaces[i][0]].X + width;
+                        y2 = ListaDesenhar[ListaFaces[i][0]].Y + height;
 
                         Vertice.PontoMedio(x1, y1, x2, y2, imagem, corBoracha);
                     }
-                    x1 = ListaDesenhar[ListaFaces[i][totalVertice]].X + width;
-                    y1 = ListaDesenhar[ListaFaces[i][totalVertice]].Y + height;
-                    x2 = ListaDesenhar[ListaFaces[i][0]].X + width;
-                    y2 = ListaDesenhar[ListaFaces[i][0]].Y + height;
-
-                    Vertice.PontoMedio(x1, y1, x2, y2, imagem, corBoracha);
-
                 }
+                else
+                {
+                    if (formaDesenhar == 1)
+                    {
 
+                    }
+                }
 
                 pictureBox.Image = imagem;
             }
@@ -411,13 +435,13 @@ namespace ComputerGraphic.Models
             // COLOCAR PERSPECTIVA
             if (perspectiva)
             {
-                double d = 10 / (Math.Tan(((Math.PI / 180) * 45)) / 2) * -1; 
+                double d = -400; 
                 ListaDesenhar.Clear();
                 foreach (var vertice in ListaVerticesAtuais)
                 {
-                    x = d * vertice.X / vertice.Z;
-                    y = d * vertice.Y / vertice.Z;
-                    z = vertice.Z;
+                    x =  vertice.X * d / (vertice.Z + d);
+                    y =  vertice.Y * d / (vertice.Z + d);
+                    z = 0;
 
                     ListaDesenhar.Add(new Vertice(x, y, z));
                 }

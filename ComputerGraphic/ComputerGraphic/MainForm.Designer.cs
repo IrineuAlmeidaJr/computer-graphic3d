@@ -29,9 +29,9 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.arquivoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -63,12 +63,12 @@
             this.checkBoxObliqua = new System.Windows.Forms.CheckBox();
             this.panel2 = new System.Windows.Forms.Panel();
             this.checkListObliqua = new System.Windows.Forms.CheckedListBox();
+            this.checkBoxPerspectiva = new System.Windows.Forms.CheckBox();
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.testZ = new System.Windows.Forms.Label();
             this.tableLayoutPanel7 = new System.Windows.Forms.TableLayoutPanel();
-            this.checkedListBox2 = new System.Windows.Forms.CheckedListBox();
+            this.checkListFormaDesenho = new System.Windows.Forms.CheckedListBox();
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.checkBoxPerspectiva = new System.Windows.Forms.CheckBox();
             this.tableLayoutPanel1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
@@ -233,40 +233,40 @@
             // 
             // dtGridVertices
             // 
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dtGridVertices.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle4.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dtGridVertices.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle4;
             this.dtGridVertices.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dtGridVertices.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.X,
             this.Y,
             this.Z});
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle2.Format = "C4";
-            dataGridViewCellStyle2.NullValue = null;
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dtGridVertices.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle5.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle5.Format = "C4";
+            dataGridViewCellStyle5.NullValue = null;
+            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dtGridVertices.DefaultCellStyle = dataGridViewCellStyle5;
             this.dtGridVertices.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dtGridVertices.Location = new System.Drawing.Point(5, 5);
             this.dtGridVertices.Name = "dtGridVertices";
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dtGridVertices.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle6.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle6.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dtGridVertices.RowHeadersDefaultCellStyle = dataGridViewCellStyle6;
             this.dtGridVertices.RowTemplate.DefaultCellStyle.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
             this.dtGridVertices.RowTemplate.DefaultCellStyle.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.dtGridVertices.RowTemplate.DefaultCellStyle.Format = "N4";
@@ -518,6 +518,20 @@
             this.checkListObliqua.TabIndex = 0;
             this.checkListObliqua.SelectedIndexChanged += new System.EventHandler(this.checkListObliqua_SelectedIndexChanged);
             // 
+            // checkBoxPerspectiva
+            // 
+            this.checkBoxPerspectiva.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.checkBoxPerspectiva.AutoSize = true;
+            this.checkBoxPerspectiva.BackColor = System.Drawing.SystemColors.ControlLight;
+            this.checkBoxPerspectiva.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBoxPerspectiva.Location = new System.Drawing.Point(25, 227);
+            this.checkBoxPerspectiva.Name = "checkBoxPerspectiva";
+            this.checkBoxPerspectiva.Padding = new System.Windows.Forms.Padding(4);
+            this.checkBoxPerspectiva.Size = new System.Drawing.Size(123, 30);
+            this.checkBoxPerspectiva.TabIndex = 3;
+            this.checkBoxPerspectiva.Text = "Perspectiva";
+            this.checkBoxPerspectiva.UseVisualStyleBackColor = false;
+            // 
             // tabPage3
             // 
             this.tabPage3.Controls.Add(this.testZ);
@@ -541,7 +555,7 @@
             // 
             this.tableLayoutPanel7.ColumnCount = 1;
             this.tableLayoutPanel7.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel7.Controls.Add(this.checkedListBox2, 0, 1);
+            this.tableLayoutPanel7.Controls.Add(this.checkListFormaDesenho, 0, 1);
             this.tableLayoutPanel7.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel7.Location = new System.Drawing.Point(5, 5);
             this.tableLayoutPanel7.Name = "tableLayoutPanel7";
@@ -551,39 +565,26 @@
             this.tableLayoutPanel7.Size = new System.Drawing.Size(363, 243);
             this.tableLayoutPanel7.TabIndex = 1;
             // 
-            // checkedListBox2
+            // checkListFormaDesenho
             // 
-            this.checkedListBox2.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.checkedListBox2.BackColor = System.Drawing.SystemColors.ControlLight;
-            this.checkedListBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkedListBox2.ForeColor = System.Drawing.SystemColors.WindowText;
-            this.checkedListBox2.FormattingEnabled = true;
-            this.checkedListBox2.Items.AddRange(new object[] {
+            this.checkListFormaDesenho.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.checkListFormaDesenho.BackColor = System.Drawing.SystemColors.ControlLight;
+            this.checkListFormaDesenho.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkListFormaDesenho.ForeColor = System.Drawing.SystemColors.WindowText;
+            this.checkListFormaDesenho.FormattingEnabled = true;
+            this.checkListFormaDesenho.Items.AddRange(new object[] {
             "Aramado",
             "Sólido"});
-            this.checkedListBox2.Location = new System.Drawing.Point(125, 117);
-            this.checkedListBox2.Name = "checkedListBox2";
-            this.checkedListBox2.Size = new System.Drawing.Size(112, 42);
-            this.checkedListBox2.TabIndex = 0;
+            this.checkListFormaDesenho.Location = new System.Drawing.Point(125, 117);
+            this.checkListFormaDesenho.Name = "checkListFormaDesenho";
+            this.checkListFormaDesenho.Size = new System.Drawing.Size(112, 42);
+            this.checkListFormaDesenho.TabIndex = 0;
+            this.checkListFormaDesenho.SelectedIndexChanged += new System.EventHandler(this.checkListFormaDesenho_SelectedIndexChanged);
             // 
             // contextMenuStrip1
             // 
             this.contextMenuStrip1.Name = "contextMenuStrip1";
             this.contextMenuStrip1.Size = new System.Drawing.Size(61, 4);
-            // 
-            // checkBoxPerspectiva
-            // 
-            this.checkBoxPerspectiva.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.checkBoxPerspectiva.AutoSize = true;
-            this.checkBoxPerspectiva.BackColor = System.Drawing.SystemColors.ControlLight;
-            this.checkBoxPerspectiva.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBoxPerspectiva.Location = new System.Drawing.Point(25, 227);
-            this.checkBoxPerspectiva.Name = "checkBoxPerspectiva";
-            this.checkBoxPerspectiva.Padding = new System.Windows.Forms.Padding(4);
-            this.checkBoxPerspectiva.Size = new System.Drawing.Size(123, 30);
-            this.checkBoxPerspectiva.TabIndex = 3;
-            this.checkBoxPerspectiva.Text = "Perspectiva";
-            this.checkBoxPerspectiva.UseVisualStyleBackColor = false;
             // 
             // ComputerGraphic
             // 
@@ -667,7 +668,7 @@
         private System.Windows.Forms.CheckBox checkBoxObliqua;
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.CheckedListBox checkListObliqua;
-        private System.Windows.Forms.CheckedListBox checkedListBox2;
+        private System.Windows.Forms.CheckedListBox checkListFormaDesenho;
         private System.Windows.Forms.CheckBox checkBoxPerspectiva;
     }
 }
